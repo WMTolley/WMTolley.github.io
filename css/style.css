@@ -34,7 +34,7 @@ body {
     background-attachment: fixed;
     /* Resizes the background image to cover the entire container */
     background-size: cover;
-    font-family: Futura, Verdana, sans-serif;
+    font-family: "Poppins", sans-serif;
     line-height: 1.5;
     font-size: 18px;
     display: flex;
