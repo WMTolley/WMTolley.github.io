@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+    <html lang="en-US">
+        <link href="index.css" rel = "stylesheet" type ="text/css"/>
+        <head>
+            <title>HTML & CSS Tutorial</title>
+        </head>
+        <body>
+            <h1 class="text" id ="title">HTML & CSS Introduction</h1>
+            <h4 class="text" id= "date">Updated 01/06/2025</h4>
+            <p class="text" id="summary">This page is a tutorial and example on how to understand and utilize HTML and CSS. Each section will explain how a certain aspect of HTML or CSS can and should be used to better a website. You may either read in order or travel to the section you have questions about.</p>
+
+            <h2 class="section_header" id="IntroductionSection">Introduction</h2>
+            <div class="text_box">
+                <p class="text">HTML is a common markup language used to customize webpages. The current version of HTML is HTML5. By using a language such as HTML to create owns webpages, you make sure that no matter how the user is viewing the page, with whatever device or screen, the contents will be provided. Additionally using such languages allows software to search throught the webiste to find the contained information. These languages also make it very easy to create and customize your own webpages, even for those with little experience, knowledge, or resources.</p>
+                <p class="text">Of the few markup languages available there are quite a few reasons to use HTML. The first and biggest is that it is used and accepted by quite nearly everyone. This is perhaps because of another benefit of it, HTML is open source and therefore can be used and accessed by anyone at no cost. HTML is also easy and quick to learn, as you'll soon find out. Additionally, while simple, HTML is flexible enought to allow one to creatively customize and make their website as complex as they wish. Adding and customizing text, images, and formatting can be done quickly and with only having to retype very little.</p>
+                <p class="text">Tim Berners-Lee invented HTML (Hypertext Markup Language) in 1993 (over thirty years ago), since then it has dominated in usage over all markup languages, easly beating other options such as XHTML and Markdown. Learning HTML will greatly increase how your able to express yourself on the web.</p>
+            </div>
+
+            <h2 class="section_header" id="DeclarationSection">Required Declaration</h2>
+            <div class="text_box">
+                <p class="text">In order for a HTML file to be read and understood as an HTML document there are several declarations and tags that must always be added. First off, at the top of every HTML document you must add a doctype declaration informing the browser which HTML version is being used, for example to declare HTML5 add "&lt!DOCTYPE html>"</p>
+                <p class="text">Then encapsulate everything else in the tags "&lthtml>" and "&lt/html>" which defines the root of this document. All of the text you add for the HTML document will be between these two tags. If you wished to declare the language your webpage will be in you can additionally add the "lang" attribute, in which case the tags could look like "&lthtml lang="en-US">" and "&lt/html>" </p>
+                <p class="text">Finally, in order to add content to the page you are creating you must add the "&ltbody>" tag and also the "&lt/body>" tag within the previously added "&lthtml>" and "&lt/html>" tags. These newly added tags will contain all of the visible content of the page. There are additional tags that could go on the same layer (within the "&lthtml>" and "&lt/html>" tags) such as the "&lthead>" and "&lt/head>" tags, but they are not required. </p>
+            </div>
+
+            <h2 class="section_header" id="TagsSection">HTML Tags</h2>
+            <div class="text_box">
+                <p class="text">HTML tags are the words of the HTML language, they are keywords used to instruct what and how the provided content should be displayed. Aside from a few exceptions all tags will follow the familiar format of a keyword surrounded by "&lt" and ">" followed by the conent you want enclosed within it and then ending with a forward-slash and the keyward surrounded by "&lt" and ">", for example the previously seen "&lthtml>" and "&lt/html>" tags.</p>
+                <p class="text">Normally within the pair of tags, you can put inbetween the content that you intend to be displayed. For example if you were to add "&ltp>" and "&lt/p>", then the text you would provide inside of those tags would be displayed in a paragraph format on the webpage. In another example if you wished to dispaly an ordered list then you would surround the required items (which have their own tags of "&ltli>" and "&lt/li>") with the "&ltol>" and "&lt/ol>" tags.</p>
+                <p class="text">HTML tags without a closing pair (so only "&lt", the keyword, its attributes, and ">") are called void tags, and are much less common. Void tags don't have a closing pair because there is no content inbetween them and therefore no need. Instead all the necessary information is found within the provided attributes.</p>
+            </div>
+
+            <h2 class="section_header" id="TextSection">Adding Text</h2>
+            <div class="text_box">
+                <p class="text">There are various tags you can use to add text to a page using HTML. While this might seem confusing this allows one to quickly add the needed text in a variety of ways. These tags include:</p>
+                <p class="text"> 
+                    <ul>
+                        <li>"&lth1>", "&lth2>", "&lth3>", "&lth4>", "&lth5>", and "&lth6>": adds the default text in a header format.</li>
+                        <li>"&ltp>": adds the default text in a paragraph format.</li>
+                        <li>"&ltb>": adds the default text in bold.</li>
+                        <li>"&lti>": adds the default text in italic.</li>
+                        <li>"&ltu>": adds the default text in underline.</li>
+                        <li>"&ltmark>": adds the default text highlighted.</li>
+                        <li>"&ltdel>": adds the default text in strikethrough.</li>
+                        <li>"&ltsup>": adds the default text as a superscript.</li>
+                        <li>"&ltsub>": adds the default text as a subscript.</li>
+                        <li>"&lth1 hidden>": hides the surrounded text.</li>
+                    </ul>
+                </p>
+                <p class="text">To display the text you want just add the desired opening tag, then the text of what you want to display, and end it with the corresponding closing tag (which is just the opening tag with a forward-slash before the keyword).</p>
+                <p class="text">
+                    <ul>
+                        <li>For example "&ltp>hello&lt/p>" will result in: hello</li>
+                        <li>While "&ltdel>hello&lt/del>" will result in: <del>hello</del></li>
+                        <li>And "&ltmark>hello&lt/mark>" will result in: <mark>hello</mark></li>
+                        <li>However "&ltp hidden>hello&lt/p>" will predictably result in: <p class="text" hidden>hello</p></li>
+                    </ul>
+                </p>
+                <p class="text">Adding text is perhaps the most important part of web developement, since that is how to most effectively communitcate with users, however don't worry about memorizing every single tag, since normally you will prefer to use a few and will later learn how to customize your own with CSS.</p>
+            </div>
+
+            <h2 class="section_header" id="TitleSection">Title Attribute</h2>
+            <div class="text_box">
+                <p class="text">There is both a Title attribute (which we will be discussing here) and a Title tag (which we will not). The Title tag can be added in the layer below the optional "head" tag, and is the title seen in the browser title bar and SERP. The Title attribute however is differnt. The Title attribute allows you to display additional text when the cursior is over the text with the Title attribute.</p>
+                <p class="text">For example put your mouse cursor over any of the three following words:</p>
+                <p class="text"> 
+                    <ol>
+                        <li title="Search Engine Results Pages">SERP</li>
+                        <li title="HyperText Markup Language">HTML</li>
+                        <li title="Cascading Style Sheets">CSS</li>
+                    </ol>
+                </p>
+                <p class="text">Inorder to add such a title to your text add a "title" attribute to your text tag and set it equal to the text you wish to be displayed when the cursor is over it.</p>
+                <p class="text">For example "&ltb title="1234"> Password &lt/b>" will result in: <b title="1234">Password</b></p>
+                <p class="text">And "&lti title="1-111-111-1111"> Contact Me &lt/i>" will result in: <i title="1-111-111-1111">Contact Me</i></p>
+            </div>
+
+            <h2 class="section_header" id="AnchorSection">Anchor Tag</h2>
+            <div class="text_box">
+                <p class="text">An anchor tag can be used to contain a hyperlink or download within text. The contents surrounded by the anchor tags are whats displayed to the user and the "href" attribute controls what the hyperlink is referencing.</p>
+                <p class="text">In this example click the link to travel to the TIOBE index, <a href = "https://www.tiobe.com/tiobe-index/" target="_blank">Here</a>. This result was created using: "&lta href = "https://www.tiobe.com/tiobe-index/" target="_blank"> Here &lt/a>", the "target="_blank"" text is added so that the link opens in a new tab.</p>
+                <p class="text">In this example click the link if you want to travel to the title of this page, <a href = "#title">Why would you click this?</a> This result was created using: "&lta href = "#title"> Fun &lt/a>", the "#title" is referring to the title's text's ID, which is an attribute you can add.</p>
+                <p class="text">In this example click the link to download a png file, if this opens the image instead of downloading it that is due to your browser, <a href = "NormalHallway.png" download="CreepyHallway.png">Download PNG file</a>. This result was created using: "&lta href = "NormalHallway.png" download="CreepyHallway.png"> Download PNG file &lt/a>"</p>
+                <p class="text">In this example click the link to download a txt file, if this opens the textfile instead of downloading it that is due to your browser, <a href = "index.txt" download="index.txt">Download TXT file</a>. This result was created using: "&lta href = "index.txt" download="index.txt"> Download TXT file &lt/a>"</p>
+            </div>
+
+            <h2 class="section_header" id="ImageSection">Adding Images</h2>
+            <div class="text_box">
+                <p class="text">It is possible to use HTML to add images to your webpage. To do so I have to add the img tag. The img tag is a void tag, meaning that it requires only an opening tag and no closing tag.</p>
+                <p class="text">Images are an important way to quickly communicate and share concepts. Adding them to your webpage can benefit how much your users understand or are intrested in your webpage. At the same time though it is important to use the "alt" tag to provide alternate text in case the image fails to load, otherwise your users might be quite confused.</p>
+                <p class="text">For example, "&ltimg src = "NormalHallway.png" alt="Description of Image">" produces the image below. With the "src" attribute stating which image is to be displayed while the "alt" attribute, provides the alternate text if the image fails to load.</p>
+                <img class="image" src = "NormalHallway.png" alt="Description of Image" loading="lazy" title="Normal Image">
+                <p class="text">Additionally you can specify the width and height of the image through the tags attributes or CSS. For example, "&ltimg src = "NormalHallway.png" alt="Description of Image" width="80">", results in:</p>
+                <img src = "NormalHallway.png" alt="Description of Image" width="80" height="108" loading="lazy" title="Shrinked Image">
+                <p class="text">Adding the "loading" attribute set to "lazy" (instead of "eager") helps improve the performance of the webpage, by only loading the images when they are about to be displayed.</p>
+                <p class="text">Also, if you rembmer the "title" attribute covered in the <a href = "#TitleSection">"Title Attribute"</a> section. You can use the "title" attribute to provide additional text when the mouse cursor is over text, you can also do the same thing with images. Look at the ones above.</p>
+            </div>
+            
+            <h2 class="section_header">Example</h2>
+            <div class="text_box">
+                <p class="text"></p>
+                <p class="text"></p>
+            </div>
+
+            <h2 class="section_header">Example</h2>
+            <div class="text_box">
+                <p class="text"></p>
+                <p class="text"></p>
+            </div>
+
+            <h2 class="section_header">Example</h2>
+            <div class="text_box">
+                <p class="text"></p>
+                <p class="text"></p>
+            </div>
+            
+            <!-- <marquee behavior="scroll" direction="right">Here is some scrolling text... left to right!</marquee> -->
+            <!-- &lt -->
+            <!-- <p class="text" style="text-align:center;">hello</p> -->
+            <!-- style="height:350px;border:3px dotted #830000; overflow:auto;"> -->
+            <!-- <div style="height:120px;width:120px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">As you can see, once there's enough text in this box, the box will grow scroll bars... that's why we call it a scroll box! You could also place an image into the scroll box.</div> -->
+        </body>
+    </html>

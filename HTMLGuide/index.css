@@ -1,0 +1,49 @@
+#title {
+    font-size: 100px;
+    color: rgb(13, 0, 255);
+    background-color: aqua;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#date {
+    font-size: 25px;
+    color: rgb(255, 0, 162);
+    text-align: right;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#summary {
+    font-size: 30px;
+    font-weight: bold;
+    text-indent:50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section_header {
+    font-size: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.text_box {
+    height:300px;
+    border:3px dotted #830000;
+    overflow:auto;
+}
+
+.text {
+    font-size: 25px;
+    font-family:'Courier New', Courier, monospace
+}
+
+li {
+    font-size: 15px;
+    font-family:'Courier New', Courier, monospace
+}
+
+.image {
+    width:192px;
+    height:108px;
+}
+/* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+/* font-family:'Times New Roman', Times, serif */
