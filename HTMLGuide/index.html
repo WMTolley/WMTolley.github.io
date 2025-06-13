@@ -6,7 +6,7 @@
         </head>
         <body>
             <h1 class="text" id ="title">HTML & CSS Introduction</h1>
-            <h4 class="text" id= "date">Updated 01/06/2025</h4>
+            <h4 class="text" id= "date">Updated 06/12/2025</h4>
             <p class="text" id="summary">This page is a tutorial and example on how to understand and utilize HTML and CSS. Each section will explain how a certain aspect of HTML or CSS can and should be used to better a website. You may either read in order or travel to the section you have questions about.</p>
 
             <h2 class="section_header" id="IntroductionSection">Introduction</h2>
@@ -95,11 +95,56 @@
                 <p class="text">Adding the "loading" attribute set to "lazy" (instead of "eager") helps improve the performance of the webpage, by only loading the images when they are about to be displayed.</p>
                 <p class="text">Also, if you rembmer the "title" attribute covered in the <a href = "#TitleSection">"Title Attribute"</a> section. You can use the "title" attribute to provide additional text when the mouse cursor is over text, you can also do the same thing with images. Look at the ones above.</p>
             </div>
+
+            <h2 class="section_header">Style Attribute</h2>
+            <div class="text_box">
+                <p class="text">One attriubte that you might find yourself using quite frequently, depending on how you implement your CSS code, is the style attribute. The style attribute is a HTML Global Attributes (meaning it can be used within all HTML elements), just like: Title, ID, and the Class attributes. This attriubte allows you to add inline CSS code, meaning that your adding/modifying CSS values directly to the element within the HTML file (in fact within the element's tag). This can be useful for elements that are unique and don't have a style that needs repeating and also takes priority over stylesheets (either internal or external), overwriting the style to what you want.</p>
+                <p class="text">While this web page primarily uses an external stylesheet (named index.css) to stylize the content, the style attribute can still be found regularly. Either in cases that we want to control the appearances of each individaul element or overwrite the default of what we established in the external stylesheet.</p>
+                <p class="text">Below are some examples of text which have utilized the style attribute:</p>
+                <p class="text">     
+                    <ul>
+                        <li style = "outline:auto; width:300px">style = "outline:auto; width:0px"</li>
+                        <li style = "color:red; word-spacing: 20px;">style = "color:red; word-spacing: 20px;"</li>
+                        <li style = "opacity:0.4; background-color:aqua; width:50%">style = "opacity:0.4; background-color:aqua; width:50%"</li>
+                    </ul>
+                </p>
+            </div>
             
-            <h2 class="section_header">Example</h2>
+            <h2 class="section_header" id="ListSection">Listing Elements</h2>
             <div class="text_box">
-                <p class="text"></p>
-                <p class="text"></p>
+                <p class="text">In case you want to list out elements you can use either the "&ltol>" or "&ltul>" tags. "&ltol>" is for ordered lists (1,2,3,4) and "&ltul>" is for unordered or bulleted lists. Those are the tags that surround the entire list, in order to signal each element each seperate one must be contained within a "&ltli>" tag.</p>
+                <p class="text">For example to create the ordered list of the three Acronyms given earlier, the following code is necessary: "&ltol> &ltli>SERP&lt/li> &ltli>HTML&lt/li> &ltli>CSS&lt/li> &lt/ol>"</p>
+                <p class="text">     
+                    <ol>
+                        <li title="Search Engine Results Pages">SERP</li>
+                        <li title="HyperText Markup Language">HTML</li>
+                        <li title="Cascading Style Sheets">CSS</li>
+                    </ol>
+                </p>
+                <p class="text">And the list unordered and in bullets would be: "&ltul> &ltli>SERP&lt/li> &ltli>HTML&lt/li> &ltli>CSS&lt/li> &lt/ul>"</p>
+                <p class="text">     
+                    <ul>
+                        <li title="Search Engine Results Pages">SERP</li>
+                        <li title="HyperText Markup Language">HTML</li>
+                        <li title="Cascading Style Sheets">CSS</li>
+                    </ul>
+                </p>
+                <p class="text">The "&ltul>" and "&ltol>" tags can by stylized either with CSS or through the style attribute. For example adding "style = "list-style-type:square"" will look like:</p>
+                <p class="text">    
+                    <ul style="list-style-type:square">
+                        <li>Red</li>
+                        <li>Green</li>
+                        <li>Blue</li>
+                    </ul>
+                </p>
+                <p class="text">Another sytle attribute that can be changed is "line-height" which can be seen to change the distances between items:</p>
+                <p class="text">    
+                    <ul style="line-height:50%">
+                        <li>Red</li>
+                        <li>Green</li>
+                        <li>Blue</li>
+                    </ul>
+                </p>
             </div>
 
             <h2 class="section_header">Example</h2>
@@ -113,6 +158,12 @@
                 <p class="text"></p>
                 <p class="text"></p>
             </div>
+
+            <!-- <h2 class="section_header">Example</h2>
+            <div class="text_box">
+                <p class="text"></p>
+                <p class="text"></p>
+            </div> -->
             
             <!-- <marquee behavior="scroll" direction="right">Here is some scrolling text... left to right!</marquee> -->
             <!-- &lt -->
