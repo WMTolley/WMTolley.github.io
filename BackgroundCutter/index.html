@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link href="index3.css" rel = "stylesheet" type ="text/css"/>
+    <head>
+        <title>Background Cutter</title>
+        <link rel="icon" href="BackgroundCut.png" type="image/x-icon">
+    </head>
+    <body>
+        <h1>Background Cutter</h1>
+
+        <input type="file" id="fileInput">
+        
+
+        <div id="ModeInput" style="display: none;">
+            <label for="SelectMode" >Choose Mode:</label>
+            <select id="SelectMode">
+                <option value="RemoveWhite">Remove White</option>
+                <option value="RemoveBlack">Remove Black</option>
+                <option value="GreyScale">Grey Scale</option>
+                <option value="ChangeExposure">Change Exposure</option>
+            </select>
+            <br>
+        </div>
+        <div id='ValueInput' style="display:none">
+            <label id="InputLabel" for="toleranceInput">Filter's Sensitivity:</label>
+            <input id="toleranceInput" type="number" value="1" min="0" max="256" step="1">
+        </div>
+        
+        <button id="downloadButton" style="display: none;">Download Processed Image</button>
+        <br>
+        <canvas id="canvas"></canvas>
+        <canvas id="VirtualCanvas"></canvas>
+
+        
+    </body>
+
+    <script>
+
+        document.getElementById('SelectMode').addEventListener('change', function(event) {
+            const variableInput = document.getElementById('toleranceInput');
+            const labelInput = document.getElementById('InputLabel');
+            console.log(document.getElementById('SelectMode').value)
+            switch(document.getElementById('SelectMode').value)
+            {
+                case("RemoveWhite"):
+                    variableInput.value = 1
+                    variableInput.min = 0
+                    variableInput.max = 256
+                    variableInput.step = 1
+                    labelInput.textContent ="Filter's Sensitivity:"
+                    document.getElementById('ValueInput').style.display ='block';
+                    break;
+                case("RemoveBlack"):
+                    variableInput.value = 1
+                    variableInput.min = 0
+                    variableInput.max = 256
+                    variableInput.step = 1
+                    labelInput.textContent ="Filter's Sensitivity:"
+                    document.getElementById('ValueInput').style.display ='block';
+                    break;
+                case("GreyScale"):
+                    document.getElementById('ValueInput').style.display ='none';
+                    break;
+                case("ChangeExposure"):
+                    variableInput.value = 1.0
+                    variableInput.min = 0
+                    variableInput.max = 3.0
+                    variableInput.step = .1
+                    labelInput.textContent ="Exposure Rate:"
+                    document.getElementById('ValueInput').style.display ='block';
+                    break;
+            }
+        });
+
+        // When a png is uploaded, set the canvas to that data.
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file && file.type === "image/png") {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        let canvas = document.getElementById('VirtualCanvas');
+                        let ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        // document.getElementById('downloadButton').style.display = 'block';
+
+                        canvas = document.getElementById('canvas');
+                        ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        document.getElementById('downloadButton').style.display = 'block';
+
+
+                        document.getElementById('ModeInput').style.display ='block';
+                        document.getElementById('ValueInput').style.display ='block';
+                        // document.getElementById('SelectMode').style.display ='block';
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // When the download button is clicked, filter based on sensitivity and download.
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            // document.getElementById("canvas").value = document.getElementById("VirtualCanvas").value
+            (document.getElementById("canvas")).getContext("2d").drawImage(document.getElementById("VirtualCanvas"), 0, 0);
+            const canvas1 = document.getElementById('canvas');
+            const ctx = canvas1.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas1.width, canvas1.height);
+            const pixels = imageData.data;
+            
+            // Loop through each pixel
+            const mode = document.getElementById("SelectMode").value
+            if(mode==="RemoveWhite")
+            {
+                let tolerance = 256-document.getElementById("toleranceInput").value;
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const red = pixels[i];
+                    const green = pixels[i + 1];
+                    const blue = pixels[i + 2];
+                    // If pixel falls out of tolerance, make it transparent
+                    if (red+blue+green >= tolerance*3) {
+                        pixels[i + 3] = 0;
+                    }
+                }
+            }
+            else if (mode==="RemoveBlack"){
+                let sensitivity = document.getElementById("toleranceInput").value;
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const red = pixels[i];
+                    const green = pixels[i + 1];
+                    const blue = pixels[i + 2];
+                    // If pixel falls out of tolerance, make it transparent
+                    if (red+blue+green < sensitivity*3) {
+                        pixels[i + 3] = 0;
+                    }
+                }
+            }
+            else if (mode==="GreyScale")
+            {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const average = pixels[i]+pixels[i+1]+pixels[i+2]
+                    pixels[i] =average
+                    pixels[i+1] =average
+                    pixels[i+2] =average
+                }
+            }
+            else if (mode==="ChangeExposure")
+            {
+                let rate = document.getElementById("toleranceInput").value;
+                for (let i = 0; i < pixels.length; i += 4) {
+                    pixels[i] *=rate 
+                    pixels[i+1] *=rate
+                    pixels[i+2] *=rate
+                }
+            }
+            ctx.putImageData(imageData, 0, 0);
+            const canvas = document.getElementById('canvas');
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'processed_image.png';
+            link.click();
+        });
+    </script>
+</html>

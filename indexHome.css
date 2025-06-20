@@ -1,5 +1,6 @@
 h1 {
     font-size: 100px;
+    /* font-size: 10px; */
     /* color: red; */
     background-color: lightskyblue;
     text-align: center;
@@ -8,7 +9,13 @@ h1 {
     border-right:0px;
     padding-right:0px; */
     width:auto;
+    /* display:none; */
 }
 body {
     background-color: darkblue;
+}
+img {
+    /* display:none; */
+    width: 100px;
+    height: 100px;
 }

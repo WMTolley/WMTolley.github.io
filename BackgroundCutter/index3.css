@@ -1,0 +1,16 @@
+h1 {
+    text-align: center;
+    color:rgb(42, 106, 179);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    word-spacing: 10px;
+    letter-spacing: 3px;
+    font-size: 50px;
+}
+body {
+    background-color: rgb(211, 170, 237);
+}
+canvas {
+    width: 300px;
+    height: auto;
+
+}
