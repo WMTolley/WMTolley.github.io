@@ -18,12 +18,17 @@
                 <option value="RemoveBlack">Remove Black</option>
                 <option value="GreyScale">Grey Scale</option>
                 <option value="ChangeExposure">Change Exposure</option>
+                <option value="Mix">Mix</option>
             </select>
             <br>
         </div>
         <div id='ValueInput' style="display:none">
             <label id="InputLabel" for="toleranceInput">Filter's Sensitivity:</label>
             <input id="toleranceInput" type="number" value="1" min="0" max="256" step="1">
+        </div>
+        <div id='ColorInput' style="display:none">
+            <label id="rgbLabel" for="rgbInput">Color: </label>
+            <input id="rgbInput" type="color" value="0x000000000">
         </div>
         
         <button id="downloadButton" style="display: none;">Download Processed Image</button>
@@ -49,6 +54,7 @@
                     variableInput.step = 1
                     labelInput.textContent ="Filter's Sensitivity:"
                     document.getElementById('ValueInput').style.display ='block';
+                    document.getElementById('ColorInput').style.display ='none';
                     break;
                 case("RemoveBlack"):
                     variableInput.value = 1
@@ -57,9 +63,11 @@
                     variableInput.step = 1
                     labelInput.textContent ="Filter's Sensitivity:"
                     document.getElementById('ValueInput').style.display ='block';
+                    document.getElementById('ColorInput').style.display ='none';
                     break;
                 case("GreyScale"):
                     document.getElementById('ValueInput').style.display ='none';
+                    document.getElementById('ColorInput').style.display ='none';
                     break;
                 case("ChangeExposure"):
                     variableInput.value = 1.0
@@ -68,6 +76,11 @@
                     variableInput.step = .1
                     labelInput.textContent ="Exposure Rate:"
                     document.getElementById('ValueInput').style.display ='block';
+                    document.getElementById('ColorInput').style.display ='none';
+                    break;
+                case("Mix"):
+                    document.getElementById('ValueInput').style.display ='none';
+                    document.getElementById('ColorInput').style.display ='block';
                     break;
             }
         });
@@ -107,12 +120,11 @@
 
         // When the download button is clicked, filter based on sensitivity and download.
         document.getElementById('downloadButton').addEventListener('click', function() {
-            // document.getElementById("canvas").value = document.getElementById("VirtualCanvas").value
             (document.getElementById("canvas")).getContext("2d").drawImage(document.getElementById("VirtualCanvas"), 0, 0);
             const canvas1 = document.getElementById('canvas');
             const ctx = canvas1.getContext('2d');
-            const imageData = ctx.getImageData(0, 0, canvas1.width, canvas1.height);
-            const pixels = imageData.data;
+            let imageData = ctx.getImageData(0, 0, canvas1.width, canvas1.height);
+            let pixels = imageData.data;
             
             // Loop through each pixel
             const mode = document.getElementById("SelectMode").value
@@ -157,6 +169,18 @@
                     pixels[i] *=rate 
                     pixels[i+1] *=rate
                     pixels[i+2] *=rate
+                }
+            }
+            else if (mode==="Mix")
+            {
+                var paint = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(document.getElementById("rgbInput").value);
+                console.log(parseInt(paint[1],16))
+                console.log(parseInt(paint[2],16))
+                console.log(parseInt(paint[3],16))
+                for (let i = 0; i < pixels.length; i += 4) {
+                    pixels[i] =(pixels[i]+parseInt(paint[1],16))/2
+                    pixels[i+1] =(pixels[i+1]+parseInt(paint[2],16))/2
+                    pixels[i+2] =(pixels[i+2]+parseInt(paint[3],16))/2
                 }
             }
             ctx.putImageData(imageData, 0, 0);
