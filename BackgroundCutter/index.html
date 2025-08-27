@@ -16,7 +16,10 @@
             <select id="SelectMode">
                 <option value="RemoveWhite">Remove White</option>
                 <option value="RemoveBlack">Remove Black</option>
+                <option value="RemoveAlpha">Remove Alpha</option>
                 <option value="GreyScale">Grey Scale</option>
+                <option value="BlackWhite">Black and White</option>
+                <option value="Invert">Invert</option>
                 <option value="ExtractComponent">Extract Component</option>
                 <option value="ChangeExposure">Change Exposure</option>
                 <option value="Mix">Mix</option>
@@ -67,6 +70,10 @@
 
     <script>
 
+        const originalImage = new Image();
+        const tempImage = new Image();
+        tempImage.src ="BackgroundCut.png";
+
         document.getElementById('SelectMode').addEventListener('change', function(event) {
             const variableInput = document.getElementById('toleranceInput');
             const labelInput = document.getElementById('InputLabel');
@@ -96,7 +103,38 @@
                     document.getElementById('ComponentDropdown').style.display ='none';
                     document.getElementById('ClearWasteDropdown').style.display ='none';
                     break;
+                case("RemoveAlpha"):
+                    variableInput.value = 1
+                    variableInput.min = 0
+                    variableInput.max = 256
+                    variableInput.step = 1
+                    labelInput.textContent ="Filter's Sensitivity:"
+                    document.getElementById('ValueInput').style.display ='block';
+                    document.getElementById('ColorInput').style.display ='none';
+                    document.getElementById('ColorInput2').style.display ='none';
+                    document.getElementById('ComponentDropdown').style.display ='none';
+                    document.getElementById('ClearWasteDropdown').style.display ='none';
+                    break;
                 case("GreyScale"):
+                    document.getElementById('ValueInput').style.display ='none';
+                    document.getElementById('ColorInput').style.display ='none';
+                    document.getElementById('ColorInput2').style.display ='none';
+                    document.getElementById('ComponentDropdown').style.display ='none';
+                    document.getElementById('ClearWasteDropdown').style.display ='none';
+                    break;
+                case("BlackWhite"):
+                variableInput.value = 1
+                    variableInput.min = 0
+                    variableInput.max = 256
+                    variableInput.step = 1
+                    labelInput.textContent ="Filter's Sensitivity:"
+                    document.getElementById('ValueInput').style.display ='block';
+                    document.getElementById('ColorInput').style.display ='none';
+                    document.getElementById('ColorInput2').style.display ='none';
+                    document.getElementById('ComponentDropdown').style.display ='none';
+                    document.getElementById('ClearWasteDropdown').style.display ='none';
+                    break;
+                case("Invert"):
                     document.getElementById('ValueInput').style.display ='none';
                     document.getElementById('ColorInput').style.display ='none';
                     document.getElementById('ColorInput2').style.display ='none';
@@ -145,9 +183,6 @@
                     document.getElementById('ClearWasteDropdown').style.display ='block';
                     document.getElementById('ColorInput').style.display ='none';
                     document.getElementById('ColorInput2').style.display ='none';
-
-
-                
                     break;
             }
             previewChanged()
@@ -156,7 +191,8 @@
         // When a png is uploaded, set the canvas to that data.
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            if (file && file.type === "image/png") {
+            if (file && (file.type === "image/png"||file.type === "image/jpeg")) {
+            // if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
@@ -173,8 +209,15 @@
                         canvas.width = img.width;
                         canvas.height = img.height;
                         ctx.drawImage(img, 0, 0);
-                        document.getElementById('downloadButton').style.display = 'block';
 
+                        const variableInput = document.getElementById('toleranceInput');
+                        const labelInput = document.getElementById('InputLabel');
+                        variableInput.value = 1
+                        variableInput.min = 0
+                        variableInput.max = 256
+                        variableInput.step = 1
+                        labelInput.textContent ="Filter's Sensitivity:"
+                        document.getElementById('downloadButton').style.display = 'block';
 
                         document.getElementById('ModeInput').style.display ='block';
                         document.getElementById('ValueInput').style.display ='block';
@@ -183,12 +226,25 @@
                         document.getElementById('SelectMode').value = "RemoveWhite"
                         document.getElementById('ComponentDropdown').style.display ='none';
                         document.getElementById('ClearWasteDropdown').style.display ='none';
-                        // document.getElementById('SelectMode').style.display ='block';
+                        document.getElementById('PreviewCanvas').style.display ='inline';
+                        document.getElementById('canvas').style.display ='inline';
+                        previewChanged()
                     };
                     img.src = e.target.result;
+                    originalImage.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-                previewChanged()
+            }
+            else {
+                document.getElementById('downloadButton').style.display = 'none';
+                document.getElementById('ModeInput').style.display ='none';
+                document.getElementById('ValueInput').style.display ='none';
+                document.getElementById('ColorInput').style.display ='none';
+                document.getElementById('ColorInput2').style.display ='none';
+                document.getElementById('ComponentDropdown').style.display ='none';
+                document.getElementById('ClearWasteDropdown').style.display ='none';
+                document.getElementById('PreviewCanvas').style.display ='none';
+                document.getElementById('canvas').style.display ='none';
             }
         });
 
@@ -202,7 +258,11 @@
         });
 
         function previewChanged() {
+            (document.getElementById("PreviewCanvas")).getContext("2d").clearRect(0, 0, (document.getElementById("canvas").width), (document.getElementById("canvas").height));
             (document.getElementById("PreviewCanvas")).getContext("2d").drawImage(document.getElementById("canvas"), 0, 0);
+            // (document.getElementById("PreviewCanvas")).getContext("2d").drawImage(tempImage, 0, 0);
+            // (document.getElementById("PreviewCanvas")).getContext("2d").drawImage(originalImage, 0, 0);
+            
             const canvas1 = document.getElementById('PreviewCanvas');
             const ctx = canvas1.getContext('2d');
             let imageData = ctx.getImageData(0, 0, canvas1.width, canvas1.height);
@@ -219,7 +279,10 @@
                     const blue = pixels[i + 2];
                     // If pixel falls out of tolerance, make it transparent
                     if (red+blue+green >= tolerance*3) {
-                        pixels[i + 3] = 0;
+                        pixels[i] =0
+                        pixels[i+1] =0
+                        pixels[i+2] =0
+                        pixels[i+3]=0
                     }
                 }
             }
@@ -231,17 +294,62 @@
                     const blue = pixels[i + 2];
                     // If pixel falls out of tolerance, make it transparent
                     if (red+blue+green < sensitivity*3) {
-                        pixels[i + 3] = 0;
+                        pixels[i] =0
+                        pixels[i+1] =0
+                        pixels[i+2] =0
+                        pixels[i+3]=0
+                    }
+                }
+            }
+            else if (mode==="RemoveAlpha")
+            {
+                let sensitivity = document.getElementById("toleranceInput").value;
+                for (let i = 0; i < pixels.length; i += 4) {
+                    if(pixels[i+3]<sensitivity) {
+                        pixels[i] =0
+                        pixels[i+1] =0
+                        pixels[i+2] =0
+                        pixels[i+3] =255
                     }
                 }
             }
             else if (mode==="GreyScale")
             {
                 for (let i = 0; i < pixels.length; i += 4) {
-                    const average = pixels[i]+pixels[i+1]+pixels[i+2]
-                    pixels[i] =average
-                    pixels[i+1] =average
-                    pixels[i+2] =average
+                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
+                    pixels[i] =combination
+                    pixels[i+1] =combination
+                    pixels[i+2] =combination
+                }
+            }
+            else if (mode==="BlackWhite")
+            {
+                let sensitivity = document.getElementById("toleranceInput").value;
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
+                    if(combination<sensitivity*3) {
+                        pixels[i] =255
+                        pixels[i+1] =255
+                        pixels[i+2] =255
+                    }
+                    else {
+                        pixels[i] =0
+                        pixels[i+1] =0
+                        pixels[i+2] =0
+                    }
+                    
+                }
+            }
+            else if (mode==="Invert")
+            {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const red = pixels[i];
+                    const green = pixels[i + 1];
+                    const blue = pixels[i + 2];
+                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
+                    pixels[i] =(combination-red)/2
+                    pixels[i+1] =(combination-green)/2
+                    pixels[i+2] =(combination-blue)/2
                 }
             }
             else if (mode==="ExtractComponent")
@@ -340,12 +448,25 @@
                     const green = pixels[i + 1];
                     const blue = pixels[i + 2];
                     if ((red>parseInt(paintOne[1],16) || red< parseInt(paintTwo[1],16))||(green>parseInt(paintOne[2],16) || green< parseInt(paintTwo[2],16))||(blue>parseInt(paintOne[3],16) || blue< parseInt(paintTwo[3],16))) {
-                        pixels[i + 3] = 0;
+                        pixels[i] =0
+                        pixels[i+1] =0
+                        pixels[i+2] =0
+                        pixels[i+3]=0
                     }
                 }
             }
             ctx.putImageData(imageData, 0, 0);
         }
-
     </script>
 </html>
+
+
+
+<!-- const originalImage = new Image();
+originalImage.src = "yourImagePath.png"; // or use FileReader if uploaded
+
+function previewChanged() {
+    const previewCtx = document.getElementById("PreviewCanvas").getContext("2d");
+    previewCtx.drawImage(originalImage, 0, 0);
+    // ... then apply pixel manipulation
+} -->
