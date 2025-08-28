@@ -9,13 +9,39 @@ h1 {
     border-right:0px;
     padding-right:0px; */
     width:auto;
-    /* display:none; */
 }
 body {
     background-color: darkblue;
 }
 img {
-    /* display:none; */
     width: 100px;
     height: 100px;
+}
+
+.Division {
+    background-color: plum;
+    /* padding:30px; */
+    margin:30px;
+    padding:15px;
+    /* text-align: center; */
+    /* width:1092px;
+    height:1008px; */
+}
+
+.Links {
+    /* margin:20px; */
+    /* display:inline; */
+    align-items: center;
+    align-content: center;
+    text-align: center;
+
+}
+
+.Link {
+    height:150px;
+    width:150px;
+    display:inline-block;
+    align-items: center;
+    align-content: center;
+    text-align: center;
 }
