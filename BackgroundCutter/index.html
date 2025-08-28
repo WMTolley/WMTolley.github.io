@@ -20,6 +20,8 @@
                 <option value="GreyScale">Grey Scale</option>
                 <option value="BlackWhite">Black and White</option>
                 <option value="Invert">Invert</option>
+                <option value="ChannelBlend">Channel Blend</option>
+                <option value="Delta">Delta</option>
                 <option value="ExtractComponent">Extract Component</option>
                 <option value="ChangeExposure">Change Exposure</option>
                 <option value="Mix">Mix</option>
@@ -33,12 +35,12 @@
         </div>
         <div id='ColorInput' style="display:none" onchange="previewChanged()">
             <label id="rgbLabel" for="rgbInput">Color: </label>
-            <input id="rgbInput" type="color" value="0x000000000">
+            <input id="rgbInput" type="color" value="#000000">
         </div>
 
         <div id='ColorInput2' style="display:none" onchange="previewChanged()">
             <label id="rgbLabel2" for="rgbInput2">Color: </label>
-            <input id="rgbInput2" type="color" value="0x000000000">
+            <input id="rgbInput2" type="color" value="#000000">
         </div>
         
         <div id='ComponentDropdown' style="display:none" onchange="previewChanged()">
@@ -116,14 +118,19 @@
                     document.getElementById('ClearWasteDropdown').style.display ='none';
                     break;
                 case("GreyScale"):
-                    document.getElementById('ValueInput').style.display ='none';
+                    variableInput.value = 100
+                    variableInput.min = -100
+                    variableInput.max = 100
+                    variableInput.step = 1
+                    labelInput.textContent ="Accuracy:"
+                    document.getElementById('ValueInput').style.display ='block';
                     document.getElementById('ColorInput').style.display ='none';
                     document.getElementById('ColorInput2').style.display ='none';
                     document.getElementById('ComponentDropdown').style.display ='none';
                     document.getElementById('ClearWasteDropdown').style.display ='none';
                     break;
                 case("BlackWhite"):
-                variableInput.value = 1
+                    variableInput.value = 32
                     variableInput.min = 0
                     variableInput.max = 256
                     variableInput.step = 1
@@ -135,6 +142,20 @@
                     document.getElementById('ClearWasteDropdown').style.display ='none';
                     break;
                 case("Invert"):
+                    document.getElementById('ValueInput').style.display ='none';
+                    document.getElementById('ColorInput').style.display ='none';
+                    document.getElementById('ColorInput2').style.display ='none';
+                    document.getElementById('ComponentDropdown').style.display ='none';
+                    document.getElementById('ClearWasteDropdown').style.display ='none';
+                    break;
+                case("ChannelBlend"):
+                    document.getElementById('ValueInput').style.display ='none';
+                    document.getElementById('ColorInput').style.display ='none';
+                    document.getElementById('ColorInput2').style.display ='none';
+                    document.getElementById('ComponentDropdown').style.display ='none';
+                    document.getElementById('ClearWasteDropdown').style.display ='none';
+                    break;
+                case("Delta"):
                     document.getElementById('ValueInput').style.display ='none';
                     document.getElementById('ColorInput').style.display ='none';
                     document.getElementById('ColorInput2').style.display ='none';
@@ -177,7 +198,7 @@
                     variableInput.min = 0.0
                     variableInput.max = 255
                     variableInput.step = 1
-                    labelInput.textContent ="Cutoff Value:"
+                    labelInput.textContent ="Filter's Sensitivity:"
                     document.getElementById('ValueInput').style.display ='block';
                     document.getElementById('ComponentDropdown').style.display ='block';
                     document.getElementById('ClearWasteDropdown').style.display ='block';
@@ -272,13 +293,13 @@
             const mode = document.getElementById("SelectMode").value
             if(mode==="RemoveWhite")
             {
-                let tolerance = 256-document.getElementById("toleranceInput").value;
+                let sensitivity = 256-document.getElementById("toleranceInput").value;
                 for (let i = 0; i < pixels.length; i += 4) {
                     const red = pixels[i];
                     const green = pixels[i + 1];
                     const blue = pixels[i + 2];
                     // If pixel falls out of tolerance, make it transparent
-                    if (red+blue+green >= tolerance*3) {
+                    if (red+blue+green >= sensitivity*3) {
                         pixels[i] =0
                         pixels[i+1] =0
                         pixels[i+2] =0
@@ -315,11 +336,16 @@
             }
             else if (mode==="GreyScale")
             {
+                let accuracy = document.getElementById("toleranceInput").value;
                 for (let i = 0; i < pixels.length; i += 4) {
-                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
-                    pixels[i] =combination
-                    pixels[i+1] =combination
-                    pixels[i+2] =combination
+                    const red = pixels[i];
+                    const green = pixels[i + 1];
+                    const blue = pixels[i + 2];
+                    const average =(red+green+blue)/3.0
+                    
+                    pixels[i] =average*(accuracy)/100+red*(100-accuracy)/100.0
+                    pixels[i+1] =average*(accuracy)/100+green*(100-accuracy)/100.0
+                    pixels[i+2] =average*(accuracy)/100+blue*(100-accuracy)/100.0
                 }
             }
             else if (mode==="BlackWhite")
@@ -327,7 +353,7 @@
                 let sensitivity = document.getElementById("toleranceInput").value;
                 for (let i = 0; i < pixels.length; i += 4) {
                     const combination = pixels[i]+pixels[i+1]+pixels[i+2]
-                    if(combination<sensitivity*3) {
+                    if(combination>=sensitivity*3) {
                         pixels[i] =255
                         pixels[i+1] =255
                         pixels[i+2] =255
@@ -346,6 +372,29 @@
                     const red = pixels[i];
                     const green = pixels[i + 1];
                     const blue = pixels[i + 2];
+                    pixels[i] =(255-red)
+                    pixels[i+1] =(255-green)
+                    pixels[i+2] =(255-blue)
+                }
+            }
+            else if (mode==="Delta")
+            {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const red = pixels[i];
+                    const green = pixels[i + 1];
+                    const blue = pixels[i + 2];
+                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
+                    pixels[i] =Math.abs((combination-red)/2-red)
+                    pixels[i+1] =Math.abs((combination-green)/2-green)
+                    pixels[i+2] =Math.abs((combination-blue)/2-blue)
+                }
+            }
+            else if (mode==="ChannelBlend")
+            {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    const red = pixels[i];
+                    const green = pixels[i + 1];
+                    const blue = pixels[i + 2];
                     const combination = pixels[i]+pixels[i+1]+pixels[i+2]
                     pixels[i] =(combination-red)/2
                     pixels[i+1] =(combination-green)/2
@@ -354,11 +403,11 @@
             }
             else if (mode==="ExtractComponent")
             {
-                var tolerance = document.getElementById('toleranceInput').value
+                var sensitivity = document.getElementById('toleranceInput').value
                 switch(document.getElementById("SelectComponent").value){
                     case "Red":
                         for (let i = 0; i < pixels.length; i += 4) {
-                            if(pixels[i]<=tolerance) {
+                            if(pixels[i]<=sensitivity) {
                                 if( document.getElementById("ClearWaste").value=="True") {
                                     pixels[i] =0
                                     pixels[i+1] =0
@@ -379,7 +428,7 @@
                         break;
                     case "Green":
                         for (let i = 0; i < pixels.length; i += 4) {
-                            if(pixels[i+1]<=tolerance) {
+                            if(pixels[i+1]<=sensitivity) {
                                 if( document.getElementById("ClearWaste").value=="True") {
                                     pixels[i] =0
                                     pixels[i+1] =0
@@ -400,7 +449,7 @@
                         break;
                     case "Blue":
                         for (let i = 0; i < pixels.length; i += 4) {
-                            if(pixels[i+2]<=tolerance) {
+                            if(pixels[i+2]<=sensitivity) {
                                 if( document.getElementById("ClearWaste").value=="True") {
                                     pixels[i] =0
                                     pixels[i+1] =0
