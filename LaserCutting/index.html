@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link href="LaserCutting.css" rel = "stylesheet" type ="text/css"/>
+    <head>
+        <title>Laser Cutting</title>
+        <link rel="icon" href="LaserCutting.png" type="image/x-icon">
+    </head>
+    <body>
+        <h1>Laser Cutting Files</h1>
+
+        <label for="SelectFileType" >Choose File Type:</label>
+        <select id="SelectFileType">
+            <option value="SVG">SVG</option>
+            <option value="PDF">PDF</option>
+            <option value="lbrn2">lbrn2</option>
+        </select>
+
+        <div id="SVGProjects" style="display:block">
+            <label for="SVGSelectProject" >Choose Project:</label>
+            <select id="SVGSelectProject">
+                <option value="SVG:LaserCuttingSquare(350-150By10-20)">LaserCuttingSquare (350-150 by 10-20)</option>
+                <option value="SVG:LaserCuttingSquare(400-100By10-50)">LaserCuttingSquare (400-100 by 10-50)</option>
+                <option value="SVG:WerewolfCards_Arcane_StandardSet">WereWolf Cards - Arcane - Standard Set</option>
+                <option value="SVG:WerewolfCards_Arcane_ExpandedSet">WereWolf Cards - Arcane - Expanded Set</option>
+            </select>
+
+            <p id="SVG:LaserCuttingSquare(350-150By10-20)" style="display:block"><a href = "StudioLaserCuttingSquare_350-150by10-20.svg" download="StudioLaserCuttingSquare_350-150by10-20.svg">Download</a> Laser Cutting Square File then import it in LightBurn. Next set speed and power settings according to the axises, with the labels themselves being 100ms and 20% power.</p>
+            <p id="SVG:LaserCuttingSquare(400-100By10-50)" style="display:none"><a href = "StudioLaserCuttingSquare_400-100by10-50.svg" download="StudioLaserCuttingSquare_400-100by10-50.svg">Download</a> Laser Cutting Square File then import it in LightBurn. Next set speed and power settings according to the axises, with the labels themselves being 100ms and 20% power</p>
+
+            <p id="SVG:WerewolfCards_Arcane_StandardSet" style="display:none"><a href = "WerewolfCards_Arcane_StandardSet.svg" download="WerewolfCards_Arcane_StandardSet.svg">Download</a> the SVG file, then import it in Lightburn. Except for the black borders and green text, set all the colors to fill. Next, set the speed and power of the colors to... black: 12ms25%3pass, lightgreen: 100ms20%, dirtyblue: 300ms40%, purple: 300ms30%, gray: 300ms20%, lightgray: 300ms10%</p>
+            <p id="SVG:WerewolfCards_Arcane_ExpandedSet" style="display:none"><a href = "WerewolfCards_Arcane_ExpandedSet.svg" download="WerewolfCards_Arcane_ExpandedSet.svg">Download</a> the SVG File, then import it in Lightburn. Except for the black borders and green text, set all the colors to fill. Next, set the speed and power of the colors to... black: 12ms25%3pass, lightgreen: 100ms20%, dirtyblue: 300ms40%, purple: 300ms30%, gray: 300ms20%, lightgray: 300ms10% </p>
+
+
+
+
+            <!-- Plane Glider-SVG-4 -->
+
+
+        </div>
+
+        <div id="PDFProjects" style="display:none">
+            <label for="PDFSelectProject" >Choose Project:</label>
+            <select id="PDFSelectProject">
+                <option value="SVG">2</option>
+                <option value="PDF">PDF</option>
+            </select>
+        </div>
+
+        <div id="LBRNProjects" style="display:none">
+            <label for="LBRNSelectProject" >Choose Project:</label>
+            <select id="LBRNSelectProject">
+                <option value="SVG">3</option>
+                <option value="PDF">PDF</option>
+            </select>
+
+            <p id="LBRN:LaserCuttingSquare(350-150By10-20)" style="display:block"><a href = "StudioLaserCuttingSquareColored.lbrn2" download="StudioLaserCuttingSquareColored.lbrn2">Download</a> Laser Cutting Square File then open it in LightBurn</p>
+        </div>
+
+    </body>
+
+    <script>
+        document.getElementById('SelectFileType').addEventListener('change', function(event) {
+            switch (document.getElementById('SelectFileType').value)
+            {
+                case ("SVG"):
+                    document.getElementById('SVGProjects').style.display="block";
+                    document.getElementById('PDFProjects').style.display="none";
+                    document.getElementById('LBRNProjects').style.display="none";
+                    break;
+                case ("PDF"):
+                    document.getElementById('SVGProjects').style.display="none";
+                    document.getElementById('PDFProjects').style.display="block";
+                    document.getElementById('LBRNProjects').style.display="none";
+                    break;
+                case ("LBRN"):
+                    document.getElementById('SVGProjects').style.display="none";
+                    document.getElementById('PDFProjects').style.display="none";
+                    document.getElementById('LBRNProjects').style.display="block";
+                    break;
+            }
+        });
+
+        document.getElementById('SVGSelectProject').addEventListener('change', function(event) {
+
+            switch (document.getElementById('SVGSelectProject').value)
+            {
+                case ("SVG:LaserCuttingSquare(350-150By10-20)"):
+                    document.getElementById('SVG:LaserCuttingSquare(350-150By10-20)').style.display="block";
+
+                    document.getElementById('SVG:LaserCuttingSquare(400-100By10-50)').style.display="none";
+                    document.getElementById('SVG:WerewolfCards_Arcane_StandardSet').style.display="none";
+                    document.getElementById('SVG:WerewolfCards_Arcane_ExpandedSet').style.display="none";
+                    break;
+
+                case ("SVG:LaserCuttingSquare(400-100By10-50)"):
+                    document.getElementById('SVG:LaserCuttingSquare(400-100By10-50)').style.display="block";
+
+                    document.getElementById('SVG:LaserCuttingSquare(350-150By10-20)').style.display="none";
+                    document.getElementById('SVG:WerewolfCards_Arcane_StandardSet').style.display="none";
+                    document.getElementById('SVG:WerewolfCards_Arcane_ExpandedSet').style.display="none";
+                    break;
+
+                case ("SVG:WerewolfCards_Arcane_StandardSet"):
+                    document.getElementById('SVG:WerewolfCards_Arcane_StandardSet').style.display="block";
+
+                    document.getElementById('SVG:LaserCuttingSquare(400-100By10-50)').style.display="none";
+                    document.getElementById('SVG:LaserCuttingSquare(350-150By10-20)').style.display="none";
+                    document.getElementById('SVG:WerewolfCards_Arcane_ExpandedSet').style.display="none";
+                    break;
+
+                case ("SVG:WerewolfCards_Arcane_ExpandedSet"):
+                    document.getElementById('SVG:WerewolfCards_Arcane_ExpandedSet').style.display="block";
+
+                    document.getElementById('SVG:LaserCuttingSquare(400-100By10-50)').style.display="none";
+                    document.getElementById('SVG:LaserCuttingSquare(350-150By10-20)').style.display="none";
+                    document.getElementById('SVG:WerewolfCards_Arcane_StandardSet').style.display="none";
+                    break;
+
+
+
+
+                    
+                    
+
+
+            }
+        });
+
+        
+
+    </script>
+
+</html>
