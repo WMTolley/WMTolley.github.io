@@ -72,11 +72,13 @@
                 <option value="LBRN:LaserCuttingSquare(350-150By10-20)">LaserCuttingSquare (350-150 By 10-20)</option>
                 <option value="LBRN:LaserCuttingSquare(400-100By10-50)">LaserCuttingSquare (400-100 By 10-50)</option>
                 <option value="LBRN:WerewolfCards_Arcane_StandardSet">WereWolf Cards - Arcane - Standard Set</option>
+                <option value="LBRN:WerewolfCards_Arcane_ExpandedSet">WereWolf Cards - Arcane - Expanded Set</option>
             </select>
 
             <p id="LBRN:LaserCuttingSquare(350-150By10-20)" style="display:block">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/StudioLaserCuttingSquare_350-150by10-20.lbrn2" download="StudioLaserCuttingSquareColored.lbrn2">Download</a> Laser Cutting Square File then open it in LightBurn</p>
             <p id="LBRN:LaserCuttingSquare(400-100By10-50)" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/StudioLaserCuttingSquare_400-100by10-50.lbrn2" download="StudioLaserCuttingSquareColored.lbrn2">Download</a> Laser Cutting Square File then open it in LightBurn</p>
             <p id="LBRN:WerewolfCards_Arcane_StandardSet" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/WerewolfCards_Arcane_StandardSet.lbrn2" download="WerewolfCards_Arcane_StandardSet.lbrn2">Download</a> the WereWolf Cards file, then open it in Lightburn.</p>
+            <p id="LBRN:WerewolfCards_Arcane_ExpandedSet" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/WerewolfCards_Arcane_ExpandedSet.lbrn2" download="WerewolfCards_Arcane_ExpandedSet.lbrn2">Download</a> the WereWolf Cards file, then open it in Lightburn.</p>
         </div>
 
     </body>
@@ -181,6 +183,7 @@
             document.getElementById('LBRN:LaserCuttingSquare(350-150By10-20)').style.display="none";
             document.getElementById('LBRN:LaserCuttingSquare(400-100By10-50)').style.display="none";
             document.getElementById('LBRN:WerewolfCards_Arcane_StandardSet').style.display="none";
+            document.getElementById('LBRN:WerewolfCards_Arcane_ExpandedSet').style.display="none";
 
             switch (document.getElementById('LBRNSelectProject').value)
             {
@@ -195,7 +198,10 @@
                 case ("LBRN:WerewolfCards_Arcane_StandardSet"):
                     document.getElementById('LBRN:WerewolfCards_Arcane_StandardSet').style.display="block";
                     break;
-
+                
+                case ("LBRN:WerewolfCards_Arcane_ExpandedSet"):
+                    document.getElementById('LBRN:WerewolfCards_Arcane_ExpandedSet').style.display="block";
+                    break;
             }
         });
 
