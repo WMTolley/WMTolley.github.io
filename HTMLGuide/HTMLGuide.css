@@ -41,6 +41,12 @@ li {
     font-family:'Courier New', Courier, monospace
 }
 
+hr {
+    border-top: dotted #830000;
+    margin-left:10px;
+    margin-right:10px;
+}
+
 .image {
     width:192px;
     height:108px;

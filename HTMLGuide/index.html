@@ -1,12 +1,13 @@
 <!DOCTYPE html>
     <html lang="en-US">
-        <link href="index.css" rel = "stylesheet" type ="text/css"/>
         <head>
             <title>HTML & CSS Tutorial</title>
+            <link rel="icon" href="../MagicalSphere.png" type="image/x-icon">
+            <link href="HTMLGuide.css" rel = "stylesheet" type ="text/css"/>
         </head>
         <body>
             <h1 class="text" id ="title">HTML & CSS Introduction</h1>
-            <h4 class="text" id= "date">Updated 06/12/2025</h4>
+            <h4 class="text" id= "date">Updated 09/24/2025</h4>
             <p class="text" id="summary">This page is a tutorial and example on how to understand and utilize HTML and CSS. Each section will explain how a certain aspect of HTML or CSS can and should be used to better a website. You may either read in order or travel to the section you have questions about.</p>
 
             <h2 class="section_header" id="IntroductionSection">Introduction</h2>
@@ -45,6 +46,7 @@
                         <li>"&ltsup>": adds the default text as a superscript.</li>
                         <li>"&ltsub>": adds the default text as a subscript.</li>
                         <li>"&lth1 hidden>": hides the surrounded text.</li>
+                        <li>"&ltcode>": Displays the text in the monospace font.</li>
                     </ul>
                 </p>
                 <p class="text">To display the text you want just add the desired opening tag, then the text of what you want to display, and end it with the corresponding closing tag (which is just the opening tag with a forward-slash before the keyword).</p>
@@ -57,6 +59,14 @@
                     </ul>
                 </p>
                 <p class="text">Adding text is perhaps the most important part of web developement, since that is how to most effectively communitcate with users, however don't worry about memorizing every single tag, since normally you will prefer to use a few and will later learn how to customize your own with CSS.</p>
+            </div>
+
+            <h2 class="section_header" id="CommentingHTMLSection">Commenting HTML</h2>
+            <div class="text_box">
+                <p class="text">When learning how to code you've probalbly heard a thousand times how documentation is important. If you haven't heard this before, well congrats now you have, and you're probably never stop hearing it.</p>
+                <p class="text">Documentation is important to help you understand what you itended your code to do when your debugging and also help communicate your ideas, intentions, and perhaps mistakes to others. Without documention, there would be only the code provided to understand the project, this can be impracticle and impossible for larger projects. Importantly just because the outcome of the code is understood doesn't mean its intention is. That is why documentation through comments is important.</p>
+                <p class="text">In order to leave comments in a HTML file, just surround your code/text with "&lt!--" and "--&gt". The "--&gt" segment can be contained several lines below, if so it will comment out every line inbetween.</p>
+                <p class="text">While it might sound tedious, most programming softwares make it easier for you to comment out whole lines, just select the lines you want commented out and press ctrl+?.</p>
             </div>
 
             <h2 class="section_header" id="TitleSection">Title Attribute</h2>
@@ -99,7 +109,7 @@
             <h2 class="section_header">Style Attribute</h2>
             <div class="text_box">
                 <p class="text">One attriubte that you might find yourself using quite frequently, depending on how you implement your CSS code, is the style attribute. The style attribute is a HTML Global Attributes (meaning it can be used within all HTML elements), just like: Title, ID, and the Class attributes. This attriubte allows you to add inline CSS code, meaning that your adding/modifying CSS values directly to the element within the HTML file (in fact within the element's tag). This can be useful for elements that are unique and don't have a style that needs repeating and also takes priority over stylesheets (either internal or external), overwriting the style to what you want.</p>
-                <p class="text">While this web page primarily uses an external stylesheet (named index.css) to stylize the content, the style attribute can still be found regularly. Either in cases that we want to control the appearances of each individaul element or overwrite the default of what we established in the external stylesheet.</p>
+                <p class="text">While this web page primarily uses an external stylesheet (named HTMLGuide.css) to stylize the content, the style attribute can still be found regularly. Either in cases that we want to control the appearances of each individaul element or overwrite the default of what we established in the external stylesheet.</p>
                 <p class="text">Below are some examples of text which have utilized the style attribute:</p>
                 <p class="text">     
                     <ul>
@@ -147,9 +157,46 @@
                 </p>
             </div>
 
+            <h2 class="section_header" id="LineBreakSection">Lines and Breaks</h2>
+            <div class="text_box">
+                <p class="text">There will be times in which you will want to seperate paragraphs farther for readability. While we will later go over how to achieve this with just CSS and no additional elements (both with the style attribute or a stylesheet), there are two simple html elements that can do this quickly</p>
+                <hr>
+                <p class="text">The spacing and line created between this paragraph and the previous one, was created by the &lthr> void tag. If you want to add the spacing without the line you can use the &ltbr> void tag.</p>
+                <br>
+                <p class="text">The &ltbr> tag was used between this pragraph and the last one, unlike the other void tag you will see no horizontal line. Both of these tags can be customized with CSS, below are examples of such:</p>
+                <hr style="border-top:dashed black">
+                <hr style="border-top:groove lightblue; margin-left:25px">
+                <hr style="border-top:double black">
+                <hr style="border-top:4px ridge lightcoral; margin-right:20px; margin-left:20px">
+                <hr style="border-top:5px dotted black">
+                <br>
+            </div>
+
+            <h2 class="section_header" id="HeadStructureSection">Head Element</h2>
+            <div class="text_box">
+                <p class="text">In the <a href = "#DeclarationSection">"Required Declaration"</a> section, it was mentioned that you should add the &ltbody&gt element whithin the &lthtml&gt element. However this is not the only element you can add here. You can also add a &lthead&gt element, and probably should. This element is mostly used to contain the metadata necessary for machines to accurately read your webpage. The follow examples are features you can add within this element if desired:</p>
+                <p class="text">You can add a title tag surrounding the text of a short description/title of your website. For example the code &lttitle&gtHTML & CSS Tutorial&lt/title&gt within the head element adds that text on the tab of your web-broswer and adds crucial meta-data for machines to sort through.</p>
+                <p class="text">Browsers also allow you to link an image to add to the page's tab using the head element. For example this page using the following code to add the magical sphere image to the tab of this page: &ltlink href="HTMLGuide.css" rel = "stylesheet" type ="text/css"/&gt</p>
+                <p class="text">Linking a style sheet (.css file) can also be done within the body element, this is necessary if you wish to use an exterior css file instead of inline or internal. The style sheet this webpage uses is named "HTMLGuide.css" and was linked to this html file using the code: &ltlink href="HTMLGuide.css" rel = "stylesheet" type ="text/css"/&gt</p>
+                <p class="text">Another tag that can be added within the head element is the &ltmeta&gt tag. This tag is for additional meta-data and can have various different attributes such as: name, content, charset, and http-equiv.</p>
+                <p class="text">One more tag that you can add within this element is the base tag. Which specifies a default URL for the links of the page.</p>
+            </div>
+
+            <!-- <h2 class="section_header" id="InputSection">HTML Inputs</h2>
+            <div class="text_box">
+                <p class="text">Commonly having a static/predefined webpage is not enough. There will probably be times in which you want to allow a user to interact with your page. While to fully utilize inputs JavaScritp is also required, for now we will cover the HTML aspect of inputs.</p>
+                <p class="text">To add a button use the tag &ltinput></p>
+                <input type="button" value="here">
+                <button>here</button>
+                <p class="text"></p>
+            </div> -->
+
+
             <h2 class="section_header">Example</h2>
             <div class="text_box">
                 <p class="text"></p>
+                <time>Hello: </time>
+                <time datetime="2025-12-25T19:00">7:00 pm</time>
                 <p class="text"></p>
             </div>
 
