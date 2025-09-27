@@ -14,6 +14,8 @@
             <option value="PDF">PDF</option>
             <option value="lbrn2">lbrn2</option>
         </select>
+        <br>
+        <br>
 
         <div id="SVGProjects" style="display:block">
             <label for="SVGSelectProject" >Choose Project:</label>
@@ -32,6 +34,9 @@
 
                 
             </select>
+
+            <br>
+            <br>
 
             <p id="SVG:LaserCuttingSquare(350-150By10-20)" style="display:block">For 1/8 inche solid acrylic or wood: <a href = "./SVG/StudioLaserCuttingSquare_350-150by10-20.svg" download="StudioLaserCuttingSquare_350-150by10-20.svg">Download</a> Laser Cutting Square File then import it in LightBurn. Next set speed and power settings according to the axises, with the labels themselves being 100ms and 20% power.</p>
             <p id="SVG:LaserCuttingSquare(400-100By10-50)" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "./SVG/StudioLaserCuttingSquare_400-100by10-50.svg" download="StudioLaserCuttingSquare_400-100by10-50.svg">Download</a> Laser Cutting Square File then import it in LightBurn. Next set speed and power settings according to the axises, with the labels themselves being 100ms and 20% power.</p>
@@ -59,6 +64,9 @@
                 <option value="PDF:HexagonBox(4inchWidth7inchHeight)">Hextagon Container (4 inch Width by 7 inch Height)</option>
             </select>
 
+            <br>
+            <br>
+
             <p id="PDF:PlaneGlider" style="display:block">For 1/16 inche solid acrylic or wood: <a href = "PDF/PlaneGlider.pdf" download="PlaneGlider.pdf">Download</a> the Plane Glider File then Good Luck</p>
             <p id="PDF:HexagonBox(1inchWidth2inchHeight)" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "PDF/HexagonBox1inchWidth2inchHeight.pdf" download="HexagonBox1inchWidth2inchHeight.pdf">Download</a> the PDF file then and import to Lightburn. Then set the power and speed so that it cuts all the way through. Finally assemble the pieces by gluing the base to one of the hexagons and glue the walls in between the two hexagons.</p>
             <p id="PDF:HexagonBox(4inchWidth7inchHeight)" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "PDF/HexagonBox4inchWidth7inchHeight.pdf" download="HexagonBox4inchWidth7inchHeight.pdf">Download</a> the PDF file then and import to Lightburn. Then set the power and speed so that it cuts all the way through. Next, cut out six walls, one base, and two hexagoons(which contain the rectangular holes). Finally assemble the pieces by gluing the base to one of the hexagons and glue the walls in between the two hexagons.</p>
@@ -73,12 +81,21 @@
                 <option value="LBRN:LaserCuttingSquare(400-100By10-50)">LaserCuttingSquare (400-100 By 10-50)</option>
                 <option value="LBRN:WerewolfCards_Arcane_StandardSet">WereWolf Cards - Arcane - Standard Set</option>
                 <option value="LBRN:WerewolfCards_Arcane_ExpandedSet">WereWolf Cards - Arcane - Expanded Set</option>
+                <option value="LBRN:BurrusHallModel">Burrus Hall Model (5.5 inches By 2 inches)</option>
+                <option value="LBRN:BurrusHallModelSmall">Burrus Hall Model Small (2.5 inches By 1 inches)</option>
+                <option value="LBRN:CEEDVTCOIN">CEED COIN</option>
             </select>
+
+            <br>
+            <br>
 
             <p id="LBRN:LaserCuttingSquare(350-150By10-20)" style="display:block">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/StudioLaserCuttingSquare_350-150by10-20.lbrn2" download="StudioLaserCuttingSquareColored.lbrn2">Download</a> Laser Cutting Square File then open it in LightBurn</p>
             <p id="LBRN:LaserCuttingSquare(400-100By10-50)" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/StudioLaserCuttingSquare_400-100by10-50.lbrn2" download="StudioLaserCuttingSquareColored.lbrn2">Download</a> Laser Cutting Square File then open it in LightBurn</p>
             <p id="LBRN:WerewolfCards_Arcane_StandardSet" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/WerewolfCards_Arcane_StandardSet.lbrn2" download="WerewolfCards_Arcane_StandardSet.lbrn2">Download</a> the WereWolf Cards file, then open it in Lightburn.</p>
             <p id="LBRN:WerewolfCards_Arcane_ExpandedSet" style="display:none">For 1/8 inche solid acrylic or wood: <a href = "./LBRN/WerewolfCards_Arcane_ExpandedSet.lbrn2" download="WerewolfCards_Arcane_ExpandedSet.lbrn2">Download</a> the WereWolf Cards file, then open it in Lightburn.</p>
+            <p id="LBRN:BurrusHallModel" style="display:none">For 1/8 inche solid acrylic: <a href = "./LBRN/BurrusHallModel.lbrn2" download="BurrusHallModel.lbrn2">Download</a> the Burrus Hall Model file, then open it in Lightburn.</p>
+            <p id="LBRN:BurrusHallModelSmall" style="display:none">For 1/8 inche solid acrylic: <a href = "./LBRN/BurrusHallModelSmall.lbrn2" download="BurrusHallModelSmall.lbrn2">Download</a> the Burrus Hall Model file, then open it in Lightburn.</p>
+            <p id="LBRN:CEEDVTCOIN" style="display:none">For 1/8 inche solid acrylic: <a href = "./LBRN/CEEDVTCOIN.lbrn2" download="CEEDVTCOIN.lbrn2">Download</a> the lbrn2 file, then open it in Lightburn.</p>
         </div>
 
     </body>
@@ -184,6 +201,14 @@
             document.getElementById('LBRN:LaserCuttingSquare(400-100By10-50)').style.display="none";
             document.getElementById('LBRN:WerewolfCards_Arcane_StandardSet').style.display="none";
             document.getElementById('LBRN:WerewolfCards_Arcane_ExpandedSet').style.display="none";
+            document.getElementById('LBRN:BurrusHallModel').style.display="none";
+            document.getElementById('LBRN:BurrusHallModelSmall').style.display="none";
+            document.getElementById('LBRN:CEEDVTCOIN').style.display="none";
+
+            
+
+
+            
 
             switch (document.getElementById('LBRNSelectProject').value)
             {
@@ -201,6 +226,15 @@
                 
                 case ("LBRN:WerewolfCards_Arcane_ExpandedSet"):
                     document.getElementById('LBRN:WerewolfCards_Arcane_ExpandedSet').style.display="block";
+                    break;
+                case ("LBRN:BurrusHallModel"):
+                    document.getElementById('LBRN:BurrusHallModel').style.display="block";
+                    break;
+                case ("LBRN:BurrusHallModelSmall"):
+                    document.getElementById('LBRN:BurrusHallModelSmall').style.display="block";
+                    break;
+                case ("LBRN:CEEDVTCOIN"):
+                    document.getElementById('LBRN:CEEDVTCOIN').style.display="block";
                     break;
             }
         });
