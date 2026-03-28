@@ -19,19 +19,51 @@
                 <option value="RemoveAlpha">Remove Alpha</option>
                 <option value="GreyScale">Grey Scale</option>
                 <option value="BlackWhite">Black and White</option>
+
+
                 <option value="Invert">Invert</option>
                 <option value="ChannelBlend">Channel Blend</option>
                 <option value="Delta">Delta</option>
+                <option value="HueShift">Hue Shift</option>
+                <option value="DualToneMix">Dual Tone Mix</option>
+                <option value="ColorQuantShift">Color Quant Shift</option>
+                
+                
+                <option value="Solarize">Solarize</option>
+                <option value="PosterEdge">Poster Edge</option>
+                <option value="TemperatureShift">Temperature Shift</option>
+                <option value="VibranceBoost">Vibrance Boost</option>
+                <option value="AutoContrast">Auto Contrast Expand</option>
+                <option value="PaletteCycle">Palette Cycle</option>
+
+
+
                 <option value="ExtractComponent">Extract Component</option>
                 <option value="ChangeExposure">Change Exposure</option>
                 <option value="Mix">Mix</option>
-                <option value="FilterWithinRange">Filter Within Range</option>
+                <option value="FilterOutRange">Remove Within Range</option>
+                <option value="FilterWithinRange">Remove Outside Range</option>
+                
+                <option value="TruePalette">True Palette</option>
+                <option value="QuickPalette">Quick Palette</option>
+                <option value="Simplify">Simplify</option>
+                <option value="SimplifyGreyScale">Simplify GreyScale</option>
+
+                <option value="SobelOutline">Sobel Outline</option>
+                <option value="Outline">Outline</option>
+                
+                <option value="ResizeImage">Resize Image</option>
+                <option value="AutoCenter">Auto Center</option>
             </select>
             <br>
         </div>
         <div id='ValueInput' style="display:none" onchange="previewChanged()">
             <label id="InputLabel" for="toleranceInput">Filter's Sensitivity:</label>
             <input id="toleranceInput" type="number" value="1" min="0" max="256" step="1">
+        </div>
+        <div id='ValueInput2' style="display:none" onchange="previewChanged()">
+            <label id="InputLabel2" for="toleranceInput2">Filter's Sensitivity:</label>
+            <input id="toleranceInput2" type="number" value="1" min="0" max="256" step="1">
         </div>
         <div id='ColorInput' style="display:none" onchange="previewChanged()">
             <label id="rgbLabel" for="rgbInput">Color: </label>
@@ -64,458 +96,8 @@
         <br>
         <canvas id="canvas"></canvas>
         <canvas id="PreviewCanvas"></canvas>
-        <!-- <break></break> -->
-        <!-- <canvas id="VirtualCanvas"></canvas> -->
 
-        
+        <script src="script.js"></script>        
     </body>
 
-    <script>
-
-        const originalImage = new Image();
-        const tempImage = new Image();
-        tempImage.src ="BackgroundCut.png";
-
-        document.getElementById('SelectMode').addEventListener('change', function(event) {
-            const variableInput = document.getElementById('toleranceInput');
-            const labelInput = document.getElementById('InputLabel');
-            switch(document.getElementById('SelectMode').value)
-            {
-                case("RemoveWhite"):
-                    variableInput.value = 1
-                    variableInput.min = 0
-                    variableInput.max = 256
-                    variableInput.step = 1
-                    labelInput.textContent ="Filter's Sensitivity:"
-                    document.getElementById('ValueInput').style.display ='block';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("RemoveBlack"):
-                    variableInput.value = 1
-                    variableInput.min = 0
-                    variableInput.max = 256
-                    variableInput.step = 1
-                    labelInput.textContent ="Filter's Sensitivity:"
-                    document.getElementById('ValueInput').style.display ='block';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("RemoveAlpha"):
-                    variableInput.value = 1
-                    variableInput.min = 0
-                    variableInput.max = 256
-                    variableInput.step = 1
-                    labelInput.textContent ="Filter's Sensitivity:"
-                    document.getElementById('ValueInput').style.display ='block';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("GreyScale"):
-                    variableInput.value = 100
-                    variableInput.min = -100
-                    variableInput.max = 100
-                    variableInput.step = 1
-                    labelInput.textContent ="Accuracy:"
-                    document.getElementById('ValueInput').style.display ='block';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("BlackWhite"):
-                    variableInput.value = 32
-                    variableInput.min = 0
-                    variableInput.max = 256
-                    variableInput.step = 1
-                    labelInput.textContent ="Filter's Sensitivity:"
-                    document.getElementById('ValueInput').style.display ='block';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("Invert"):
-                    document.getElementById('ValueInput').style.display ='none';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("ChannelBlend"):
-                    document.getElementById('ValueInput').style.display ='none';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("Delta"):
-                    document.getElementById('ValueInput').style.display ='none';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("ChangeExposure"):
-                    variableInput.value = 1.0
-                    variableInput.min = 0.0
-                    variableInput.max = 5.0
-                    variableInput.step = .1
-                    labelInput.textContent ="Exposure Rate:"
-                    document.getElementById('ValueInput').style.display ='block';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("Mix"):
-                    document.getElementById('ValueInput').style.display ='none';
-                    document.getElementById('ColorInput').style.display ='block';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    document.getElementById('rgbLabel').textContent ="Color:"
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("FilterWithinRange"):
-                    document.getElementById('ValueInput').style.display ='none';
-                    document.getElementById('ColorInput').style.display ='block';
-                    document.getElementById('ColorInput2').style.display ='block';
-                    document.getElementById('rgbLabel').textContent ="Max Color:"
-                    document.getElementById('rgbLabel2').textContent ="Min Color:"
-                    document.getElementById('rgbInput').value="#ffffff"
-                    document.getElementById('rgbInput2').value="#000000"
-                    document.getElementById('ComponentDropdown').style.display ='none';
-                    document.getElementById('ClearWasteDropdown').style.display ='none';
-                    break;
-                case("ExtractComponent"):
-                    variableInput.value = 0.0
-                    variableInput.min = 0.0
-                    variableInput.max = 255
-                    variableInput.step = 1
-                    labelInput.textContent ="Filter's Sensitivity:"
-                    document.getElementById('ValueInput').style.display ='block';
-                    document.getElementById('ComponentDropdown').style.display ='block';
-                    document.getElementById('ClearWasteDropdown').style.display ='block';
-                    document.getElementById('ColorInput').style.display ='none';
-                    document.getElementById('ColorInput2').style.display ='none';
-                    break;
-            }
-            previewChanged()
-        });
-
-        // When a png is uploaded, set the canvas to that data.
-        document.getElementById('fileInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file && (file.type === "image/png"||file.type === "image/jpeg")) {
-            // if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        let canvas = document.getElementById('PreviewCanvas');
-                        let ctx = canvas.getContext('2d');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        // document.getElementById('downloadButton').style.display = 'block';
-
-                        canvas = document.getElementById('canvas');
-                        ctx = canvas.getContext('2d');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-
-                        const variableInput = document.getElementById('toleranceInput');
-                        const labelInput = document.getElementById('InputLabel');
-                        variableInput.value = 1
-                        variableInput.min = 0
-                        variableInput.max = 256
-                        variableInput.step = 1
-                        labelInput.textContent ="Filter's Sensitivity:"
-                        document.getElementById('downloadButton').style.display = 'block';
-
-                        document.getElementById('ModeInput').style.display ='block';
-                        document.getElementById('ValueInput').style.display ='block';
-                        document.getElementById('ColorInput').style.display ='none';
-                        document.getElementById('ColorInput2').style.display ='none';
-                        document.getElementById('SelectMode').value = "RemoveWhite"
-                        document.getElementById('ComponentDropdown').style.display ='none';
-                        document.getElementById('ClearWasteDropdown').style.display ='none';
-                        document.getElementById('PreviewCanvas').style.display ='inline';
-                        document.getElementById('canvas').style.display ='inline';
-                        previewChanged()
-                    };
-                    img.src = e.target.result;
-                    originalImage.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-            else {
-                document.getElementById('downloadButton').style.display = 'none';
-                document.getElementById('ModeInput').style.display ='none';
-                document.getElementById('ValueInput').style.display ='none';
-                document.getElementById('ColorInput').style.display ='none';
-                document.getElementById('ColorInput2').style.display ='none';
-                document.getElementById('ComponentDropdown').style.display ='none';
-                document.getElementById('ClearWasteDropdown').style.display ='none';
-                document.getElementById('PreviewCanvas').style.display ='none';
-                document.getElementById('canvas').style.display ='none';
-            }
-        });
-
-        // When the download button is clicked, filter based on sensitivity and download.
-        document.getElementById('downloadButton').addEventListener('click', function() {
-            const canvas = document.getElementById('PreviewCanvas');
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL('image/png');
-            link.download = 'processed_image.png';
-            link.click();
-        });
-
-        function previewChanged() {
-            (document.getElementById("PreviewCanvas")).getContext("2d").clearRect(0, 0, (document.getElementById("canvas").width), (document.getElementById("canvas").height));
-            (document.getElementById("PreviewCanvas")).getContext("2d").drawImage(document.getElementById("canvas"), 0, 0);
-            // (document.getElementById("PreviewCanvas")).getContext("2d").drawImage(tempImage, 0, 0);
-            // (document.getElementById("PreviewCanvas")).getContext("2d").drawImage(originalImage, 0, 0);
-            
-            const canvas1 = document.getElementById('PreviewCanvas');
-            const ctx = canvas1.getContext('2d');
-            let imageData = ctx.getImageData(0, 0, canvas1.width, canvas1.height);
-            let pixels = imageData.data;
-            
-            // Loop through each pixel
-            const mode = document.getElementById("SelectMode").value
-            if(mode==="RemoveWhite")
-            {
-                let sensitivity = 256-document.getElementById("toleranceInput").value;
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const red = pixels[i];
-                    const green = pixels[i + 1];
-                    const blue = pixels[i + 2];
-                    // If pixel falls out of tolerance, make it transparent
-                    if (red+blue+green >= sensitivity*3) {
-                        pixels[i] =0
-                        pixels[i+1] =0
-                        pixels[i+2] =0
-                        pixels[i+3]=0
-                    }
-                }
-            }
-            else if (mode==="RemoveBlack"){
-                let sensitivity = document.getElementById("toleranceInput").value;
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const red = pixels[i];
-                    const green = pixels[i + 1];
-                    const blue = pixels[i + 2];
-                    // If pixel falls out of tolerance, make it transparent
-                    if (red+blue+green < sensitivity*3) {
-                        pixels[i] =0
-                        pixels[i+1] =0
-                        pixels[i+2] =0
-                        pixels[i+3]=0
-                    }
-                }
-            }
-            else if (mode==="RemoveAlpha")
-            {
-                let sensitivity = document.getElementById("toleranceInput").value;
-                for (let i = 0; i < pixels.length; i += 4) {
-                    if(pixels[i+3]<sensitivity) {
-                        pixels[i] =0
-                        pixels[i+1] =0
-                        pixels[i+2] =0
-                        pixels[i+3] =255
-                    }
-                }
-            }
-            else if (mode==="GreyScale")
-            {
-                let accuracy = document.getElementById("toleranceInput").value;
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const red = pixels[i];
-                    const green = pixels[i + 1];
-                    const blue = pixels[i + 2];
-                    const average =(red+green+blue)/3.0
-                    
-                    pixels[i] =average*(accuracy)/100+red*(100-accuracy)/100.0
-                    pixels[i+1] =average*(accuracy)/100+green*(100-accuracy)/100.0
-                    pixels[i+2] =average*(accuracy)/100+blue*(100-accuracy)/100.0
-                }
-            }
-            else if (mode==="BlackWhite")
-            {
-                let sensitivity = document.getElementById("toleranceInput").value;
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
-                    if(combination>=sensitivity*3) {
-                        pixels[i] =255
-                        pixels[i+1] =255
-                        pixels[i+2] =255
-                    }
-                    else {
-                        pixels[i] =0
-                        pixels[i+1] =0
-                        pixels[i+2] =0
-                    }
-                    
-                }
-            }
-            else if (mode==="Invert")
-            {
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const red = pixels[i];
-                    const green = pixels[i + 1];
-                    const blue = pixels[i + 2];
-                    pixels[i] =(255-red)
-                    pixels[i+1] =(255-green)
-                    pixels[i+2] =(255-blue)
-                }
-            }
-            else if (mode==="Delta")
-            {
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const red = pixels[i];
-                    const green = pixels[i + 1];
-                    const blue = pixels[i + 2];
-                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
-                    pixels[i] =Math.abs((combination-red)/2-red)
-                    pixels[i+1] =Math.abs((combination-green)/2-green)
-                    pixels[i+2] =Math.abs((combination-blue)/2-blue)
-                }
-            }
-            else if (mode==="ChannelBlend")
-            {
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const red = pixels[i];
-                    const green = pixels[i + 1];
-                    const blue = pixels[i + 2];
-                    const combination = pixels[i]+pixels[i+1]+pixels[i+2]
-                    pixels[i] =(combination-red)/2
-                    pixels[i+1] =(combination-green)/2
-                    pixels[i+2] =(combination-blue)/2
-                }
-            }
-            else if (mode==="ExtractComponent")
-            {
-                var sensitivity = document.getElementById('toleranceInput').value
-                switch(document.getElementById("SelectComponent").value){
-                    case "Red":
-                        for (let i = 0; i < pixels.length; i += 4) {
-                            if(pixels[i]<=sensitivity) {
-                                if( document.getElementById("ClearWaste").value=="True") {
-                                    pixels[i] =0
-                                    pixels[i+1] =0
-                                    pixels[i+2] =0
-                                    pixels[i+3]=0
-                                }
-                                else {
-                                    pixels[i] =0
-                                    pixels[i+1] =0
-                                    pixels[i+2] =0
-                                }
-                            }
-                            else {
-                                pixels[i+1] =0
-                                pixels[i+2] =0
-                            }
-                        }
-                        break;
-                    case "Green":
-                        for (let i = 0; i < pixels.length; i += 4) {
-                            if(pixels[i+1]<=sensitivity) {
-                                if( document.getElementById("ClearWaste").value=="True") {
-                                    pixels[i] =0
-                                    pixels[i+1] =0
-                                    pixels[i+2] =0
-                                    pixels[i+3]=0
-                                }
-                                else {
-                                    pixels[i] =0
-                                    pixels[i+1] =0
-                                    pixels[i+2] =0
-                                }
-                            }
-                            else {
-                                pixels[i] =0
-                                pixels[i+2] =0
-                            }
-                        }
-                        break;
-                    case "Blue":
-                        for (let i = 0; i < pixels.length; i += 4) {
-                            if(pixels[i+2]<=sensitivity) {
-                                if( document.getElementById("ClearWaste").value=="True") {
-                                    pixels[i] =0
-                                    pixels[i+1] =0
-                                    pixels[i+2] =0
-                                    pixels[i+3]=0
-                                }
-                                else {
-                                    pixels[i] =0
-                                    pixels[i+1] =0
-                                    pixels[i+2] =0
-                                }
-                            }
-                            else {
-                                pixels[i] =0
-                                pixels[i+1] =0
-                            }
-                        }
-                        break;
-                }
-            }
-            else if (mode==="ChangeExposure")
-            {
-                let rate = document.getElementById("toleranceInput").value;
-                for (let i = 0; i < pixels.length; i += 4) {
-                    pixels[i] *=rate 
-                    pixels[i+1] *=rate
-                    pixels[i+2] *=rate
-                }
-            }
-            else if (mode==="Mix")
-            {
-                var paint = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(document.getElementById("rgbInput").value);
-                for (let i = 0; i < pixels.length; i += 4) {
-                    pixels[i] =(pixels[i]+parseInt(paint[1],16))/2
-                    pixels[i+1] =(pixels[i+1]+parseInt(paint[2],16))/2
-                    pixels[i+2] =(pixels[i+2]+parseInt(paint[3],16))/2
-                }
-            }
-            else if (mode==="FilterWithinRange")
-            {
-                var paintOne = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(document.getElementById("rgbInput").value);
-                var paintTwo = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(document.getElementById("rgbInput2").value);
-                for (let i = 0; i < pixels.length; i += 4) {
-                    const red = pixels[i];
-                    const green = pixels[i + 1];
-                    const blue = pixels[i + 2];
-                    if ((red>parseInt(paintOne[1],16) || red< parseInt(paintTwo[1],16))||(green>parseInt(paintOne[2],16) || green< parseInt(paintTwo[2],16))||(blue>parseInt(paintOne[3],16) || blue< parseInt(paintTwo[3],16))) {
-                        pixels[i] =0
-                        pixels[i+1] =0
-                        pixels[i+2] =0
-                        pixels[i+3]=0
-                    }
-                }
-            }
-            ctx.putImageData(imageData, 0, 0);
-        }
-    </script>
 </html>
-
-
-
-<!-- const originalImage = new Image();
-originalImage.src = "yourImagePath.png"; // or use FileReader if uploaded
-
-function previewChanged() {
-    const previewCtx = document.getElementById("PreviewCanvas").getContext("2d");
-    previewCtx.drawImage(originalImage, 0, 0);
-    // ... then apply pixel manipulation
-} -->
