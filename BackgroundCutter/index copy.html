@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Background Cutter</title>
+    <link rel="icon" href="BackgroundCut.png" type="image/x-icon">
+    <link href="index3.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Background Cutter</h1>
+    </header>
+
+    <main class="container">
+
+        <!-- Upload Section -->
+        <section class="panel">
+            <h2>Upload Image</h2>
+            <input type="file" id="fileInput">
+        </section>
+
+        <p id="SelectMode" display="none"></p>
+
+
+        <section class="panel">
+
+            <!-- Header -->
+            <div id="modesHeader" class="collapse-header">
+                <span id="modesTitle">Filter Modes (Current: Remove White)</span>
+                <button id="toggleModes" class="collapse-btn">▼</button>
+            </div>
+
+            <!-- Collapsible content -->
+            <div id="modesContent" class="collapse-content">
+
+                <!-- Sidebar categories -->
+                <div class="mode-sidebar">
+
+                    <h3>Basic</h3>
+                    <button class="mode-btn" data-mode="RemoveWhite">Remove White</button>
+                    <button class="mode-btn" data-mode="RemoveBlack">Remove Black</button>
+                    <button class="mode-btn" data-mode="RemoveAlpha">Remove Alpha</button>
+                    <button class="mode-btn" data-mode="Invert">Invert</button>
+
+                    <h3>Color</h3>
+                    <button class="mode-btn" data-mode="GreyScale">Grey Scale</button>
+                    <button class="mode-btn" data-mode="BlackWhite">Black & White</button>
+                    <button class="mode-btn" data-mode="HueShift">Hue Shift</button>
+                    <button class="mode-btn" data-mode="ChangeExposure">Exposure</button>
+                    <button class="mode-btn" data-mode="VibranceBoost">Vibrance Boost</button>
+
+                    <h3>Artistic</h3>
+                    <button class="mode-btn" data-mode="WaterColor">Watercolor</button>
+                    <button class="mode-btn" data-mode="Halftone">Halftone</button>
+                    <button class="mode-btn" data-mode="RGBHalftone">RGB Halftone</button>
+
+                    <h3>Advanced</h3>
+                    <button class="mode-btn" data-mode="TruePalette">True Palette</button>
+                    <button class="mode-btn" data-mode="QuickPalette">Quick Palette</button>
+                    <button class="mode-btn" data-mode="Simplify">Simplify</button>
+                    <button class="mode-btn" data-mode="ResizeImage">Resize</button>
+                    <button class="mode-btn" data-mode="AutoCenter">Auto Center</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Dynamic Inputs -->
+        <section class="panel grouped-inputs">
+
+            <div id="ValueInput" class="input-block" style="display:none" onchange="previewChanged()">
+                <label id="InputLabel" for="toleranceInput">Filter's Sensitivity:</label>
+                <input id="toleranceInput" type="number" min="0" max="256" step="1">
+            </div>
+
+            <div id="ValueInput2" class="input-block" style="display:none" onchange="previewChanged()">
+                <label id="InputLabel2" for="toleranceInput2">Filter's Sensitivity:</label>
+                <input id="toleranceInput2" type="number" min="0" max="256" step="1">
+            </div>
+
+            <div id="ColorInput" class="input-block" style="display:none" onchange="previewChanged()">
+                <label id="rgbLabel" for="rgbInput">Color:</label>
+                <input id="rgbInput" type="color" value="#000000">
+            </div>
+
+            <div id="ColorInput2" class="input-block" style="display:none" onchange="previewChanged()">
+                <label id="rgbLabel2" for="rgbInput2">Color:</label>
+                <input id="rgbInput2" type="color" value="#000000">
+            </div>
+
+            <div id="ComponentDropdown" class="input-block" style="display:none" onchange="previewChanged()">
+                <label for="SelectComponent">Select Component:</label>
+                <select id="SelectComponent">
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Blue">Blue</option>
+                </select>
+            </div>
+
+            <div id="ClearWasteDropdown" class="input-block" style="display:none" onchange="previewChanged()">
+                <label for="ClearWaste">Clear Waste:</label>
+                <select id="ClearWaste">
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                </select>
+            </div>
+
+        </section>
+
+
+        <!-- Download + Canvases -->
+        <section class="panel">
+            <button id="downloadButton" class="btn" style="display:none;">Download Processed Image</button>
+
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+                <canvas id="PreviewCanvas"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

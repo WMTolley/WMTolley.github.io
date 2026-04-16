@@ -1,103 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link href="index3.css" rel = "stylesheet" type ="text/css"/>
-    <head>
-        <title>Background Cutter</title>
-        <link rel="icon" href="BackgroundCut.png" type="image/x-icon">
-    </head>
-    <body>
-        <h1>Background Cutter</h1>
+<head>
+    <meta charset="UTF-8" />
+    <title>Background Cutter</title>
+    <link rel="icon" href="BackgroundCut.png" type="image/x-icon">
+    <link href="index3.css" rel="stylesheet" type="text/css" />
+</head>
 
-        <input type="file" id="fileInput">
+<body>
+
+<header>
+    <h1>Background Cutter</h1>
+</header>
+
+<main class="layout">
+
+    <!-- LEFT: FILTER MODES -->
+    <section class="panel modes-panel">
         
+        <div id="modesHeader" class="collapse-header">
+            <span id="modesTitle">Filter Modes (Current: RemoveWhite)</span>
+            <button id="toggleModes" class="collapse-btn">▼</button>
+        </div>
 
-        <div id="ModeInput" style="display: none;">
-            <label for="SelectMode" >Choose Mode:</label>
-            <select id="SelectMode">
-                <option value="RemoveWhite">Remove White</option>
-                <option value="RemoveBlack">Remove Black</option>
-                <option value="RemoveAlpha">Remove Alpha</option>
-                <option value="GreyScale">Grey Scale</option>
-                <option value="BlackWhite">Black and White</option>
+        <div id="modesContent" class="collapse-content">
 
+            <div class="mode-sidebar">
 
-                <option value="Invert">Invert</option>
-                <option value="ChannelBlend">Channel Blend</option>
-                <option value="Delta">Delta</option>
-                <option value="HueShift">Hue Shift</option>
-                <option value="DualToneMix">Dual Tone Mix</option>
-                <option value="ColorQuantShift">Color Quant Shift</option>
+                <h3>Basic</h3>
+                <button class="mode-btn active" data-mode="RemoveWhite">Remove White</button>
+                <button class="mode-btn" data-mode="RemoveBlack">Remove Black</button>
+                <button class="mode-btn" data-mode="RemoveAlpha">Remove Alpha</button>
+                <button class="mode-btn" data-mode="Invert">Invert</button>
+                <button class="mode-btn" data-mode="Mix">Mix</button>
+                <button class="mode-btn" data-mode="FilterWithinRange">Filter Within Range</button>
+                <button class="mode-btn" data-mode="FilterOutRange">Filter Out Range</button>
+                <button class="mode-btn" data-mode="ExtractComponent">Extract Component</button>
+
                 
+
+                <h3>Color</h3>
+                <button class="mode-btn" data-mode="GreyScale">Grey Scale</button>
+                <button class="mode-btn" data-mode="BlackWhite">Black & White</button>
+                <button class="mode-btn" data-mode="HueShift">Hue Shift</button>
+                <button class="mode-btn" data-mode="ChangeExposure">Change Exposure</button>
+                <button class="mode-btn" data-mode="Delta">Delta</button>
+                <button class="mode-btn" data-mode="ChannelBlend">Channel Blend</button>
+                <button class="mode-btn" data-mode="VibranceBoost">Vibrance Boost</button>
+                <button class="mode-btn" data-mode="TemperatureShift">Temperature Shift</button>
+
+                <h3>Artistic</h3>
+                <button class="mode-btn" data-mode="Outline">Outline</button>
+                <button class="mode-btn" data-mode="SobelOutline">Sobel Outline</button>
+
                 
-                <option value="Solarize">Solarize</option>
-                <option value="PosterEdge">Poster Edge</option>
-                <option value="TemperatureShift">Temperature Shift</option>
-                <option value="VibranceBoost">Vibrance Boost</option>
-                <option value="AutoContrast">Auto Contrast Expand</option>
-                <option value="PaletteCycle">Palette Cycle</option>
+                <button class="mode-btn" data-mode="GradientMap">Gradient Map</button>                
+                <button class="mode-btn" data-mode="QuantizeGrayscale">Quantize Grayscale</button>
+                <button class="mode-btn" data-mode="Halftone">Halftone</button>
+                <button class="mode-btn" data-mode="MatrixDither">MatrixDither</button>
+                <!-- <button class="mode-btn" data-mode="RGBHalftone">RGBHalftone</button> -->
+                <button class="mode-btn" data-mode="RGBRatio">RGBRatio</button>
+                <!-- <button class="mode-btn" data-mode="RGBHalftone">RGBHalftone</button> -->
+                <!-- <button class="mode-btn" data-mode="RGBHalftone">RGBHalftone</button> -->
 
-
-
-                <option value="ExtractComponent">Extract Component</option>
-                <option value="ChangeExposure">Change Exposure</option>
-                <option value="Mix">Mix</option>
-                <option value="FilterOutRange">Remove Within Range</option>
-                <option value="FilterWithinRange">Remove Outside Range</option>
                 
-                <option value="TruePalette">True Palette</option>
-                <option value="QuickPalette">Quick Palette</option>
-                <option value="Simplify">Simplify</option>
-                <option value="SimplifyGreyScale">Simplify GreyScale</option>
+                <!-- <button class="mode-btn" data-mode="ColorGroup">ColorGroup</button> -->
+                <button class="mode-btn" data-mode="WaterColor">WaterColor</button>
 
-                <option value="SobelOutline">Sobel Outline</option>
-                <option value="Outline">Outline</option>
                 
-                <option value="ResizeImage">Resize Image</option>
-                <option value="AutoCenter">Auto Center</option>
-            </select>
-            <br>
-        </div>
-        <div id='ValueInput' style="display:none" onchange="previewChanged()">
-            <label id="InputLabel" for="toleranceInput">Filter's Sensitivity:</label>
-            <input id="toleranceInput" type="number" value="1" min="0" max="256" step="1">
-        </div>
-        <div id='ValueInput2' style="display:none" onchange="previewChanged()">
-            <label id="InputLabel2" for="toleranceInput2">Filter's Sensitivity:</label>
-            <input id="toleranceInput2" type="number" value="1" min="0" max="256" step="1">
-        </div>
-        <div id='ColorInput' style="display:none" onchange="previewChanged()">
-            <label id="rgbLabel" for="rgbInput">Color: </label>
-            <input id="rgbInput" type="color" value="#000000">
-        </div>
 
-        <div id='ColorInput2' style="display:none" onchange="previewChanged()">
-            <label id="rgbLabel2" for="rgbInput2">Color: </label>
-            <input id="rgbInput2" type="color" value="#000000">
+                 
+
+                <h3>Advanced</h3>
+                <button class="mode-btn" data-mode="Quantize">Quantize</button>
+                <button class="mode-btn" data-mode="ComponentQuantize">Component Quantize</button>
+                <button class="mode-btn" data-mode="Trichrome">Trichrome (Custom Quantize)</button>
+                <button class="mode-btn" data-mode="ResizeImage">Resize</button>
+                <button class="mode-btn" data-mode="AutoCenter">Auto Center</button>
+                <button class="mode-btn" data-mode="AutoContrast">Auto Contrast</button>
+                <!-- <button class="mode-btn" data-mode="ColorQuantShift">ColorQuantShift</button> -->
+                <button class="mode-btn" data-mode="PaletteCycle">PaletteCycle</button>
+                
+
+                
+
+                
+
+            </div>
         </div>
-        
-        <div id='ComponentDropdown' style="display:none" onchange="previewChanged()">
-            <label for="SelectComponent" >Select Component:</label>
-            <select id="SelectComponent">
-                <option value="Red">Red</option>
-                <option value="Green">Green</option>
-                <option value="Blue">Blue</option>
-            </select>
-        </div>
+    </section>
 
-        <div id='ClearWasteDropdown' style="display:none" onchange="previewChanged()">
-            <label for="ClearWaste" >Clear Waste:</label>
-            <select id="ClearWaste">
-                <option value="True">True</option>
-                <option value="False">False</option>
-            </select>
-        </div>
 
-        <button id="downloadButton" style="display: none;">Download Processed Image</button>
-        <br>
-        <canvas id="canvas"></canvas>
-        <canvas id="PreviewCanvas"></canvas>
 
-        <script src="script.js"></script>        
-    </body>
+    <!-- RIGHT: WORK AREA -->
+    <section class="workspace">
 
+        <!-- Image uploads -->
+        <section class="panel">
+            <h2>Images</h2>
+            <div class="image-grid">
+                <span class="group-grid">
+                    <label>Image 1:</label>
+                    <canvas class="ImagePreview" id="canvas1"></canvas>
+                    <input type="file" id="file1">
+                </span>
+
+                <span class="group-grid">
+                    <label>Image 2:</label>
+                    <canvas class="ImagePreview" id="canvas2"></canvas>
+                    <input type="file" id="file2">
+                </span>
+
+                <span class="group-grid">
+                    <label>Image 3:</label>
+                    <canvas class="ImagePreview" id="canvas3"></canvas>
+                    <input type="file" id="file3">
+                </span>
+
+                <span class="group-grid">
+                    <label>Image 4:</label>
+                    <canvas class="ImagePreview" id="canvas4"></canvas>
+                    <input type="file" id="file4">
+                </span>
+            </div>
+        </section>
+
+        <!-- Filter settings -->
+        <section class="panel" onchange="previewChanged()">
+
+            <h2>Filter Settings</h2>
+
+            <div id="ImageDropdownOne" class="input-block" style="display:none">
+                <label id="ImageDescOne">Original Image:</label>
+                <select id="ImageOne">
+                    <option value="canvas1">Image One</option>
+                    <option value="canvas2">Image Two</option>
+                    <option value="canvas3">Image Three</option>
+                    <option value="canvas4">Image Four</option>
+                </select>
+            </div>
+
+            <div id="ImageDropdownTwo" class="input-block" style="display:none">
+                <label id="ImageDescTwo">Mask Image:</label>
+                <select id="ImageTwo">
+                    <option value="None">None</option>
+                    <option value="canvas1">Image One</option>
+                    <option value="canvas2">Image Two</option>
+                    <option value="canvas3">Image Three</option>
+                    <option value="canvas4">Image Four</option>
+                </select>
+            </div>
+
+            <div id="ImageDropdownThree" class="input-block" style="display:none">
+                <label id="ImageDescThree">Mask Image:</label>
+                <select id="ImageThree">
+                    <option value="None">None</option>
+                    <option value="canvas1">Image One</option>
+                    <option value="canvas2">Image Two</option>
+                    <option value="canvas3">Image Three</option>
+                    <option value="canvas4">Image Four</option>
+                </select>
+            </div>
+
+            <div id="InvertMaskDropdown" class="input-block" style="display:none">
+                <label>Invert Mask Dropdown:</label>
+                <select id="InvertMask">
+                    <option value="False">False</option>
+                    <option value="True">True</option>
+                </select>
+            </div>
+
+            <div id="ValueInput" class="input-block" style="display:none">
+                <label id="InputLabel" for="toleranceInput">Sensitivity:</label>
+                <input id="toleranceInput" type="number" min="0" max="255" step="1">
+            </div>
+
+            <div id="ValueInput2" class="input-block" style="display:none">
+                <label id="InputLabel2" for="toleranceInput2">Value 2:</label>
+                <input id="toleranceInput2" type="number" min="0" max="255" step="1">
+            </div>
+
+            <div id="ColorInput" class="input-block" style="display:none">
+                <label id="rgbLabel">Color:</label>
+                <input id="rgbInput" type="color">
+            </div>
+
+            <div id="ColorInput2" class="input-block" style="display:none">
+                <label id="rgbLabel2">Color 2:</label>
+                <input id="rgbInput2" type="color">
+            </div>
+
+            <div id="ColorInput3" class="input-block" style="display:none">
+                <label id="rgbLabel3">Color 3:</label>
+                <input id="rgbInput3" type="color">
+            </div>
+
+            <div id="ComponentDropdown" class="input-block" style="display:none">
+                <label>Select Component:</label>
+                <select id="SelectComponent">
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Blue">Blue</option>
+                </select>
+            </div>
+
+            <div id="otherSelectDropdown" class="input-block" style="display:none">
+                <label id="SelectLabel">Error:</label>
+                <select id="otherSelect">
+                    <option value="False">False</option>
+                    <option value="True">True</option>
+                    
+                </select>
+            </div>
+
+            <div id="ClearWasteDropdown" class="input-block" style="display:none">
+                <label id="ClearLabel">Clear Waste:</label>
+                <select id="ClearWaste">
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                </select>
+            </div>
+
+            
+
+
+
+        </section>
+
+        <!-- Canvases -->
+        <section class="panel">
+            <button id="downloadButton" class="btn" >Download Image</button>
+
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+            </div>
+        </section>
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
 </html>
